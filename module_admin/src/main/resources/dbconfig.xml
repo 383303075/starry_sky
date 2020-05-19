@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--后期还需要加别的配置-->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <!--    .....-->
+    </settings>
+</configuration>

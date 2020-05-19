@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.IUserDao">
+    <select id="findByPage" parameterType="java.util.Map" resultType="domain.User">
+        select  * from   users
+        <where>
+            <if test="u_name!=null">
+                name like concat('%',#{u_name},'%')
+            </if>
+        </where>
+        limit  #{start},#{end}
+    </select>
+
+    <select id="findById" parameterType="java.util.Map" resultType="domain.User">
+        select  * from   users where a_id = #{userId}
+    </select>
+
+    <select id="getRowsCount" parameterType="java.util.Map" resultType="int">
+        select COUNT(*) FROM users
+        <where>
+            <if test="username!=null">
+                name like concat('%',#{username},'%')
+            </if>
+        </where>
+    </select>
+
+    <!--增加单条数据-->
+    <insert id="insert" parameterType="java.util.Map">
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="u_id != null">
+                u_id,
+            </if>
+            <if test="u_name != null">
+                u_name,
+            </if>
+            <if test="u_password != null">
+                u_password,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="regdate != null">
+                regdate,
+            </if>
+            <if test="u_icon != null">
+                u_icon,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="u_id != null">
+                #{u_id,jdbcType=VARCHAR},
+            </if>
+            <if test="u_name != null">
+                #{u_name,jdbcType=VARCHAR},
+            </if>
+            <if test="u_password != null">
+                #{u_password,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="regdate != null">
+                #{regdate,jdbcType=VARCHAR},
+            </if>
+            <if test="u_icon != null">
+                #{u_icon,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--单条删除-->
+    <delete id="deleteOne" parameterType="java.lang.String">
+        delete from users
+        <where>
+            id=#{id}
+        </where>
+    </delete>
+    <!--批量删除-->
+    <delete id="batchDelete" parameterType="java.lang.String">
+        delete from users
+        <where>
+            <foreach collection="list" item="id" separator="," open="id in (" close=")" >
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+</mapper>
