@@ -191,12 +191,15 @@
                     icon: 1,
                     time: 1300,
                     end: function () {
-                        // 父页面table刷新;
+                        //父页面table刷新;
                         // var $table = parent.$("#member");
-                        // table.reload('member');
-                        window.location.href="/starry_admin/admin/index";
+                        // $table.form.reload('member');
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index);
                     }
                 });
+
+
             }
         })
     };
@@ -213,12 +216,12 @@
     });
 </script>
 <script>
-    var _hmt = _hmt || []; (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
+    // var _hmt = _hmt || []; (function() {
+    //     var hm = document.createElement("script");
+    //     hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+    //     var s = document.getElementsByTagName("script")[0];
+    //     s.parentNode.insertBefore(hm, s);
+    // })();
 </script>
 </body>
 </html>

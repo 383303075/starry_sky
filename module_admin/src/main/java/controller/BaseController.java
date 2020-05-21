@@ -61,7 +61,6 @@ public abstract class BaseController {
 
         }
 
-
         //1、创建一个id
         map.put("u_id",getUUID());
         System.out.println(map.toString());
@@ -70,10 +69,10 @@ public abstract class BaseController {
         //3、处理返回结果
         Map resultMap = new HashMap();
         if(insertFlag > 0){
-            resultMap.put("code","0");
+            resultMap.put("code","1");
             resultMap.put("msg","新增成功");
         }else{
-            resultMap.put("code","1");
+            resultMap.put("code","0");
             resultMap.put("msg","新增失败");
         }
         return  resultMap;
@@ -88,10 +87,10 @@ public abstract class BaseController {
         //3、处理返回数据
         Map  resultMap  = new HashMap();
         if(delFlag > 0){
-            resultMap.put("code","0");
+            resultMap.put("code","1");
             resultMap.put("msg","删除成功");
         }else{
-            resultMap.put("code","1");
+            resultMap.put("code","0");
             resultMap.put("msg","删除失败");
         }
         return  resultMap;
@@ -112,10 +111,10 @@ public abstract class BaseController {
         //3、处理返回数据
         Map  resultMap  = new HashMap();
         if(deleteFlag > 0){
-            resultMap.put("code","0");
+            resultMap.put("code","1");
             resultMap.put("msg","删除成功");
         }else{
-            resultMap.put("code","1");
+            resultMap.put("code","0");
             resultMap.put("msg","删除失败");
         }
         return  resultMap;

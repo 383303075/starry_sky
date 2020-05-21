@@ -14,6 +14,7 @@
     <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon">&#xe608;</i>添加</button>
     <div class="layui-inline"><input class="layui-input" name="searchKey" id="name" placeholder="请输入用户名称"></div>
     <button class="layui-btn layui-btn-sm"  lay-event="search" id="Search"><i class="layui-icon">&#xe615;</i>搜索</button>
+    <button class="layui-btn layui-btn-sm"  lay-event="refresh" id="Refresh"><i class="layui-icon"></i>刷新</button>
 </script>
 <script type="text/html" id="photoImg">
     {{#  if(null!=d.photo&&d.photo.length >20){ }}
@@ -211,6 +212,14 @@
                         url: '/starry_admin/user/findByPage'
                         ,where: {name: $("#name").val()}
                     })
+
+                    break;
+
+                case  "refresh":
+                    //数据表格重新渲染
+                    table.reload('member',{
+                        url: '/starry_admin/user/findByPage'
+                    });
 
                     break;
             }
