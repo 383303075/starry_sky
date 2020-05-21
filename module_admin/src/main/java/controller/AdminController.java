@@ -38,6 +38,12 @@ public class AdminController extends BaseController{
         return "X-admin/member-list";
     }
 
+    @RequestMapping("/video-checked")
+    public String getVideoChecked(){return "X-admin/video-checked";}
+
+    @RequestMapping("/video-uncheck")
+    public String getVideoUncheck(){return "X-admin/video-uncheck";}
+
     @RequestMapping("/loginCheck")
     @ResponseBody
     public Object loginCheck(@RequestBody Map map, HttpServletRequest request){

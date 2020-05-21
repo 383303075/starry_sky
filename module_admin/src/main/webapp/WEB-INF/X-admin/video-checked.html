@@ -120,19 +120,24 @@
             //核心字段
             , cols: [[
                 {type: 'checkbox'}
-                , {field: 'u_id', title: '用户id', width: 240}
+                , {field: 'v_id', title: '视频id', width: 240}
                 , {
-                    field: 'u_name', title: '用户昵称', templet: function (d) {
+                    field: 'u_name', title: '视频名称', templet: function (d) {
                         return '<span style="color: #c00;">' + d.u_name + '</span>'
                     }, width: 150
                 }
-                , {field: 'sex', sort: true, title: '性别', width: 120}
-                , {field: 'age', title: '年龄', width: 120}
-                , {field: 'address', title: '地址', width: 120}
-                , {field: 'phone', title: '手机', width: 120}
-                , {field: 'email', title: '邮箱', width: 120}
-                , {field: 'regdate', title: '注册日期', width: 200}
-                , { field: 'u_icon', title: '照片', templet: '#photoImg', width: 200}
+                , {field: 'v_authorid', sort: true, title: '作者id', width: 120}
+                , {field: 'v_description', title: '描述', width: 120}
+                , {field: 'v_type', title: '视频类型', width: 120}
+                , {field: 'v_click', title: '点击量', width: 120}
+                , {field: 'v_date', title: '日期', width: 120}
+                , {field: 'v_image', title: '图片', templet: '#photoImg', width: 200}
+                , {field: 'v_praise', title: '点赞量', width: 120}
+                , {field: 'v_checkerid', title: '审核人id', width: 120}
+                , {field: 'v_pass', title: '是否通过', width: 120}
+                , {field: 'v_route', title: '日期', width: 120}
+                , {field: 'v_tv', title: '日期', width: 120}
+                , {field: 'v_number', title: '日期', width: 120}
                 //行工具栏
                 , {title: '操作', toolbar: '#barDemo', width: 230}
             ]]
