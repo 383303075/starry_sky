@@ -11,14 +11,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label">昵称</label>
         <div class="layui-input-block">
-            <input type="text" name="u_name" required  lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
+            <input type="text" name="u_name" required  lay-verify="required" placeholder="请输入昵称" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="text" name="u_name" required  lay-verify="required|password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            <input type="password" name="u_password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
         </div>
     </div>
     <!--<div class="layui-form-item">-->
@@ -41,7 +41,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">年龄</label>
         <div class="layui-input-block">
-            <input type="text" name="age" required  lay-verify="number" placeholder="请输入名称" autocomplete="off" class="layui-input">
+            <input type="text" name="age" required  lay-verify="number" placeholder="请输入年龄" autocomplete="off" class="layui-input">
         </div>
     </div>
     <!--===================================================-->
@@ -119,6 +119,7 @@
         </div>
     </div>
 
+
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
@@ -137,7 +138,7 @@
         //普通图片上传
         var uploadInst = upload.render({
             elem: '#test1'
-            ,url: 'starry_admin/upload/uploadImg' //改成您自己的上传接口
+            ,url: '/starry_admin/upload/uploadImg' //改成您自己的上传接口
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
@@ -161,14 +162,23 @@
         });
         //监听提交
         form.on('submit(formDemo)', function(data){
-            var user = JSON.stringify(data.field);
-            console.log(data.field);
-            // addUser(user);
+            var data_field = data.field;
+
+            //添加注册日期这一属性
+            var d = new Date();
+            var key = "regdate";
+            var value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+            data_field[key] = value;
+
+            var user = JSON.stringify(data_field);
+            console.log(data_field);
+            addUser(user);
             return false;
         });
     });
 
     function addUser(user) {
+        console.log(user)
         $.ajax({
             type: 'post',
             url: "/starry_admin/user/add",

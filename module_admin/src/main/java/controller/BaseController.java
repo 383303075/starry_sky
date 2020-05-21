@@ -48,8 +48,23 @@ public abstract class BaseController {
     @RequestMapping("/add")
     @ResponseBody
     public  Map  addObject(@RequestBody Map map){
+
+        if(map.get("address1")!=null){
+            String ad1 = map.get("address1")+"省";
+            String ad2 = (String) map.get("address2");
+            String ad3 = (String) map.get("address3");
+            String address = ad1+ad2+ad3;
+            map.put("address",address);
+            map.remove("address1");
+            map.remove("address2");
+            map.remove("address3");
+
+        }
+
+
         //1、创建一个id
         map.put("u_id",getUUID());
+        System.out.println(map.toString());
         //2、调用后台的业务逻辑
         int insertFlag = getService().insert(map);
         //3、处理返回结果
