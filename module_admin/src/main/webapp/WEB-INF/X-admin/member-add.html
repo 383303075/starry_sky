@@ -115,7 +115,7 @@
                 <img class="layui-upload-img" id="demo1" style="width: 92px;height: 92px;margin: 0 10px 10px 0;">
                 <p id="demoText"></p>
             </div>
-            <input type="text" style="display:none;" id="photo" name="photo">
+            <input type="text" style="display:none;" id="u_icon" name="u_icon">
         </div>
     </div>
 
@@ -148,7 +148,7 @@
             ,done: function(res){
                 console.log(res.path);
                 //给隐藏的input输入框赋值
-                document.getElementById("photo").value = res.path;
+                document.getElementById("u_icon").value = res.path;
                 return layer.msg(res.msg);
             }
             ,error: function(){

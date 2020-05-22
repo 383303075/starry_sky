@@ -78,7 +78,7 @@ public abstract class BaseController {
         return  resultMap;
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping("/deleteOne")
     @ResponseBody
     public  Map  deleteOne(@RequestBody String id){//1、通过requestBody接受参数
         System.out.println("============================================进入到删除方法");

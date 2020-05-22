@@ -15,7 +15,7 @@ public class User {
     //用户注册日期
     private String regdate;
     //用户头像路径
-    private String icon_route;
+    private String u_icon;
 
     public String getRegdate() {
         return regdate;
@@ -90,12 +90,12 @@ public class User {
         this.email = email;
     }
 
-    public String getIcon_route() {
-        return icon_route;
+    public String getU_icon() {
+        return u_icon;
     }
 
-    public void setIcon_route(String icon_route) {
-        this.icon_route = icon_route;
+    public void setU_icon(String u_icon) {
+        this.u_icon = u_icon;
     }
 
     @Override
@@ -110,7 +110,8 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", regdate='" + regdate + '\'' +
-                ", icon_route='" + icon_route + '\'' +
+                ", u_icon='" + u_icon + '\'' +
                 '}';
     }
 }
+

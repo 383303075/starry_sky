@@ -17,10 +17,10 @@
     <button class="layui-btn layui-btn-sm"  lay-event="refresh" id="Refresh"><i class="layui-icon"></i>刷新</button>
 </script>
 <script type="text/html" id="photoImg">
-    {{#  if(null!=d.photo&&d.photo.length >20){ }}
-    <img src="<%=basePath%>{{d.photo}}" alt="{{d.photo}}">
+    {{#  if(null!=d.u_icon&&d.u_icon.length>10){ }}
+    <img src="../{{d.u_icon}}" alt="{{d.u_icon}}">
     {{#  } else { }}
-    <img src="<%=basePath%>/static/images/default.jpg" alt="谁叫你不上传的">
+    <img src="../static/layui/images/face/5.gif" alt="谁叫你不上传的">
     {{#  } }}
 </script>
 <script type="text/html" id="barDemo">
@@ -133,7 +133,7 @@
                 , {field: 'phone', title: '手机', width: 120}
                 , {field: 'email', title: '邮箱', width: 120}
                 , {field: 'regdate', title: '注册日期', width: 200}
-                , { field: 'u_icon', title: '照片', templet: '#photoImg', width: 200}
+                , { field: 'u_icon', title: '头像', templet: '#photoImg', width: 200}
                 //行工具栏
                 , {title: '操作', toolbar: '#barDemo', width: 230}
             ]]
@@ -155,13 +155,13 @@
             }
             //监听修改操作
             else if (obj.event === 'edit') {
-                alert("点击了修改");
-                var id = data.id;
-                var tourl = "<%=basePath%>/student/oprateUi?id=" + id+"&type=1";
+                var id = data.u_id;
+                var targetPage = "/starry_admin/user/editPage?id="+id;
+                layer.msg("点击了修改");
                 layer.open({
                     type: 2,
-                    content: tourl,
-                    title: '学生信息修改',
+                    content: targetPage,
+                    title: '用户信息修改',
                     area: ['100%', '100%']
                 })
             }

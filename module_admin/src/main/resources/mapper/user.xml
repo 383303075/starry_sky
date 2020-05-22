@@ -98,7 +98,7 @@
     <delete id="deleteOne" parameterType="java.lang.String">
         delete from users
         <where>
-            id=#{id}
+            u_id=#{u_id}
         </where>
     </delete>
     <!--批量删除-->

@@ -25,6 +25,11 @@ public class UserController extends BaseController{
         return "X-admin/member-add";
     }
 
+    @RequestMapping("editPage")
+    public String member_edit(String id){
+        System.out.println("我进来了编辑页面，并且id是"+id);
+        return "X-admin/member-edit";
+    }
 
 //    @RequestMapping("/getAdminInfo")
 //    public String getAdminInfo(){
