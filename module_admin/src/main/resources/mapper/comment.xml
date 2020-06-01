@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ICommentDao">
+    <!-- 查询属性： resultType：指定返回的结果集类型：如果是多条数据的话，
+    mybatis会自动封装为list容器，并且将resultType作为list的泛型 parameterType:指定传入的参数类型：
+    int(Integer),String,Map,List，Set,其他应用类型(Comment) -->
+    <select id="findByPage" parameterType="java.util.Map" resultType="domain.Comment">
+        select  * from  comments
+        <where>
+            <if test="v_id!=null">
+                name like concat('%',#{v_id},'%')
+            </if>
+        </where>
+        limit  #{start},#{end}
+    </select>
+
+    <select id="findById" parameterType="java.util.Map" resultType="domain.Comment">
+        select  * from   admins where c_id = #{c_id}
+    </select>
+
+    <select id="getRowsCount" parameterType="java.util.Map" resultType="int">
+        select COUNT(*) FROM comments
+        <where>
+            <if test="c_id!=null">
+                name like concat('%',#{c_id},'%')
+            </if>
+        </where>
+    </select>
+
+    <!--增加单条数据-->
+    <!--新增条件语句属性： resultType：默认就是int类型 parameterType:
+    指定传入的参数类型：int(Integer),String,Map,List，Set,其他应用类型(Comment) -->
+    <insert id="insert" parameterType="java.util.Map">
+        insert into comments
+        <!--动态条件语句：trim 作用：自定义条件语句属性： prefix，
+        指定自定义语句的开始部分 suffix,指定自定义语句的结束部分 suffixOverrides，去掉额外的“，” -->
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="c_id != null">
+                c_id,
+            </if>
+            <if test="v_id != null">
+                v_id,
+            </if>
+            <if test="c_authorid != null">
+                c_authorid,
+            </if>
+            <if test="c_praise != null">
+                c_praise,
+            </if>
+            <if test="c_content != null">
+                c_content,
+            </if>
+            <if test="c_date != null">
+                c_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="c_id != null">
+                #{c_id,jdbcType=VARCHAR},
+            </if>
+            <if test="v_id!= null">
+                #{v_id,jdbcType=VARCHAR},
+            </if>
+            <if test="c_authorid != null">
+                #{c_authorid,jdbcType=VARCHAR},
+            </if>
+            <if test="c_praise != null">
+            #{c_praise,jdbcType=VARCHAR},
+        </if>
+            <if test="c_content!= null">
+                #{c_content,jdbcType=VARCHAR},
+            </if>
+            <if test="c_date!= null">
+            #{c_date,jdbcType=VARCHAR},
+
+        </if>
+        </trim>
+    </insert>
+
+    <!--单条删除-->
+    <!-- 删除 resultType：默认就是int类型 parameterType:指定传入的参数类型：
+    int(Integer),String,Map,List，Set,其他应用类型(Comment) -->
+    <delete id="deleteOne" parameterType="java.lang.String">
+        delete from comments
+        <where>
+          c_id=#{c_id}
+        </where>
+    </delete>
+
+    <!--批量删除-->
+    <delete id="batchDelete" parameterType="java.lang.String">
+        delete from comments
+        <where>
+            <foreach collection="list" item="c_id" separator="," open="c_id in (" close=")" >
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+</mapper>

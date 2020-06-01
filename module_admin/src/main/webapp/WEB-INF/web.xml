@@ -4,7 +4,15 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <filter>
+    <context-param>
+        <param-name/>
+        <param-value/>
+    </context-param>
+    <context-param>
+        <param-name/>
+        <param-value/>
+    </context-param>
+    <filter>
     <filter-name>CharacterEncodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
     <!-- 设置过滤器中的属性值 -->
