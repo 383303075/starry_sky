@@ -2,11 +2,14 @@ package controller;
 
 import domain.Admin;
 import domain.ResultInfo;
+import domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import service.IAdminService;
 import service.IBaseService;
 import service.IUserService;
@@ -26,9 +29,21 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("editPage")
-    public String member_edit(String id){
+    public String member_edit(HttpServletRequest request,String id){
         System.out.println("我进来了编辑页面，并且id是"+id);
+        String u_id = id;
+        User user = userService.findById(id);
+        request.getSession().setAttribute("editUserInfo",user);
         return "X-admin/member-edit";
+    }
+
+    @RequestMapping("getUserInfo")
+    @ResponseBody
+    public User getUserInfo(HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("editUserInfo");
+        user.setU_password(null);
+        System.out.println("-=-=-=---=-=-=-="+user.toString());
+        return user;
     }
 
 //    @RequestMapping("/getAdminInfo")

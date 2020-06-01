@@ -13,7 +13,7 @@
     </select>
 
     <select id="findById" parameterType="java.util.Map" resultType="domain.User">
-        select  * from   users where a_id = #{userId}
+        select  * from   users where u_id = #{u_id}
     </select>
 
     <select id="getRowsCount" parameterType="java.util.Map" resultType="int">
