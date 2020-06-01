@@ -18,7 +18,7 @@
 </script>
 <script type="text/html" id="photoImg">
     {{#  if(null!=d.u_icon&&d.u_icon.length>10){ }}
-    <img src="../{{d.u_icon}}" alt="{{d.u_icon}}">
+    <img src="..{{d.u_icon}}" alt="{{d.u_icon}}">
     {{#  } else { }}
     <img src="../static/layui/images/face/5.gif" alt="谁叫你不上传的">
     {{#  } }}
@@ -162,7 +162,7 @@
                     type: 2,
                     content: targetPage,
                     title: '用户信息修改',
-                    area: ['100%', '100%']
+                    area: ['40%', '70%']
                 })
             }
             else if (obj.event === 'look') {

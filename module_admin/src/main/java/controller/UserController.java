@@ -15,6 +15,7 @@ import service.IBaseService;
 import service.IUserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -39,11 +40,15 @@ public class UserController extends BaseController{
 
     @RequestMapping("getUserInfo")
     @ResponseBody
-    public User getUserInfo(HttpServletRequest request){
+    public Map getUserInfo(HttpServletRequest request){
+        Map map = new HashMap();
         User user = (User) request.getSession().getAttribute("editUserInfo");
+        map.put("code","1");
+        map.put("msg","");
         user.setU_password(null);
+        map.put("data",user);
         System.out.println("-=-=-=---=-=-=-="+user.toString());
-        return user;
+        return map;
     }
 
 //    @RequestMapping("/getAdminInfo")
