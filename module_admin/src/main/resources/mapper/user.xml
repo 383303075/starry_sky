@@ -98,14 +98,14 @@
     <delete id="deleteOne" parameterType="java.lang.String">
         delete from users
         <where>
-            u_id=#{u_id}
+            u_id=#{id}
         </where>
     </delete>
     <!--批量删除-->
     <delete id="batchDelete" parameterType="java.lang.String">
         delete from users
         <where>
-            <foreach collection="list" item="id" separator="," open="id in (" close=")" >
+            <foreach collection="list" item="id" separator="," open="u_id in (" close=")" >
                 #{id}
             </foreach>
         </where>

@@ -12,7 +12,7 @@
 <script type="text/html" id="toolbarDemo">
     <button class="layui-btn layui-btn-sm" lay-event="batchDel"><i class="layui-icon">&#xe640;</i>批量删除</button>
     <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon">&#xe608;</i>添加</button>
-    <div class="layui-inline"><input class="layui-input" name="searchKey" id="name" placeholder="请输入用户名称"></div>
+    <div class="layui-inline"><input class="layui-input" name="searchKey" id="name" placeholder="请输入用户昵称"></div>
     <button class="layui-btn layui-btn-sm"  lay-event="search" id="Search"><i class="layui-icon">&#xe615;</i>搜索</button>
     <button class="layui-btn layui-btn-sm"  lay-event="refresh" id="Refresh"><i class="layui-icon"></i>刷新</button>
 </script>
@@ -25,7 +25,7 @@
 </script>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-radius layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe702;</i>编辑</a>
-    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="look"><i class="layui-icon">&#xe770;</i>浏览</a>
+    <!--<a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="look"><i class="layui-icon">&#xe770;</i>浏览</a>-->
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#x1006;</i>删除</a>
 </script>
 <script>
@@ -56,7 +56,7 @@
         function deleteRow(object) {
             $.ajax({
                 type: 'post',
-                url: "/starry_admin/admin/deleteOne",
+                url: "/starry_admin/user/deleteOne",
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(object),
@@ -79,7 +79,7 @@
         function deleteRows(object) {
             $.ajax({
                 type: 'post',
-                url: "/starry_admin/admin/batchDelete",
+                url: "/starry_admin/user/batchDelete",
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(object),
@@ -127,15 +127,15 @@
                         return '<span style="color: #c00;">' + d.u_name + '</span>'
                     }, width: 150
                 }
-                , {field: 'sex', sort: true, title: '性别', width: 120}
-                , {field: 'age', title: '年龄', width: 120}
+                , {field: 'sex', sort: true, title: '性别', width:90}
+                , {field: 'age', title: '年龄', width: 70}
                 , {field: 'address', title: '地址', width: 120}
                 , {field: 'phone', title: '手机', width: 120}
-                , {field: 'email', title: '邮箱', width: 120}
+                , {field: 'email', title: '邮箱', width: 200}
                 , {field: 'regdate', title: '注册日期', width: 200}
                 , { field: 'u_icon', title: '头像', templet: '#photoImg', width: 200}
                 //行工具栏
-                , {title: '操作', toolbar: '#barDemo', width: 230}
+                , {title: '操作', toolbar: '#barDemo', width: 150}
             ]]
             , page: true
         });
@@ -190,8 +190,9 @@
                     var data = checked.data;
                     var  str="";
                     for (var i = 0; i < data.length; i++) {
-                        str+=data[i].id+","
+                        str+=data[i].u_id+","
                     }
+                    console.log(str);
                     layer.confirm('真的删除选中行么', function (index) {
                         deleteRows(str);
                     });
