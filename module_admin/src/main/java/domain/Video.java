@@ -25,6 +25,36 @@ public class Video {
     //存放文件路径
     private String v_route;
 
+    private String v_type;
+
+    private String v_number;
+
+    private String v_tv;
+
+    public String getV_number() {
+        return v_number;
+    }
+
+    public void setV_number(String v_number) {
+        this.v_number = v_number;
+    }
+
+    public String getV_tv() {
+        return v_tv;
+    }
+
+    public void setV_tv(String v_tv) {
+        this.v_tv = v_tv;
+    }
+
+    public String getV_type() {
+        return v_type;
+    }
+
+    public void setV_type(String v_type) {
+        this.v_type = v_type;
+    }
+
     public String getV_id() {
         return v_id;
     }
@@ -111,5 +141,25 @@ public class Video {
 
     public void setV_route(String v_route) {
         this.v_route = v_route;
+    }
+
+    @Override
+    public String toString() {
+        return "Video{" +
+                "v_id='" + v_id + '\'' +
+                ", v_name='" + v_name + '\'' +
+                ", v_authorId='" + v_authorId + '\'' +
+                ", v_description='" + v_description + '\'' +
+                ", v_click=" + v_click +
+                ", v_date='" + v_date + '\'' +
+                ", v_image='" + v_image + '\'' +
+                ", v_praise='" + v_praise + '\'' +
+                ", v_checkerId='" + v_checkerId + '\'' +
+                ", v_pass='" + v_pass + '\'' +
+                ", v_route='" + v_route + '\'' +
+                ", v_type='" + v_type + '\'' +
+                ", v_number='" + v_number + '\'' +
+                ", v_tv='" + v_tv + '\'' +
+                '}';
     }
 }
