@@ -120,5 +120,19 @@ public abstract class BaseController {
         return  resultMap;
     }
 
+    @RequestMapping("editOne")
+    @ResponseBody
+    public Map editOne(@RequestBody Map params){
+        int deleteFlag = getService().editRow(params);
+        Map  resultMap  = new HashMap();
+        if(deleteFlag > 0){
+            resultMap.put("code","1");
+            resultMap.put("msg","修改成功");
+        }else{
+            resultMap.put("code","0");
+            resultMap.put("msg","修改失败");
+        }
+        return  resultMap;
+    }
 
 }

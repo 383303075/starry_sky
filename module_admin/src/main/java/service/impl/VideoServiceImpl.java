@@ -18,9 +18,4 @@ public class VideoServiceImpl extends BaseServiceImpl implements IVideoService {
     public IBaseDao getDao() {
         return videoDao;
     }
-
-    @Override
-    public int editRow(Map map) {
-        return videoDao.editRow(map);
-    }
 }

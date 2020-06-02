@@ -16,9 +16,4 @@ public class CommentServiceImpl extends BaseServiceImpl implements ICommentServi
     public IBaseDao getDao() {
         return commentDao;
     }
-
-    @Override
-    public int editRow(Map map) {
-        return commentDao.editRow(map);
-    }
 }

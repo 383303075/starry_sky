@@ -10,6 +10,16 @@
 <body>
 <form class="layui-form" action="" lay-filter="example">
         <br><br>
+
+        <div class="layui-form-item" style="visibility: hidden">
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">昵称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="u_id" required  lay-verify="required" placeholder="请输入昵称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
         <div class="layui-form-item">
             <label class="layui-form-label">&nbsp;&nbsp;</label>
             <label class="layui-form-label">&nbsp;&nbsp;</label>
@@ -19,14 +29,14 @@
             </div>
         </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">&nbsp;&nbsp;</label>
-            <label class="layui-form-label">&nbsp;&nbsp;</label>
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-inline">
-                <input type="password" name="u_password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
-            </div>
-        </div>
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">&nbsp;&nbsp;</label>-->
+            <!--<label class="layui-form-label">&nbsp;&nbsp;</label>-->
+            <!--<label class="layui-form-label">密码</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<input type="password" name="u_password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">-->
+            <!--</div>-->
+        <!--</div>-->
         <!--<div class="layui-form-item">-->
             <!--<label class="layui-form-label">班级</label>-->
             <!--<div class="layui-input-block">-->
@@ -215,7 +225,7 @@
         console.log(user);
         $.ajax({
             type: 'post',
-            url: "/starry_admin/user/edit",
+            url: "/starry_admin/user/editOne",
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
             data: user,
@@ -229,6 +239,7 @@
                         // var $table = parent.$("#member");
                         // $table.form.reload('member');
                         var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.$('#Refresh',parent.document).trigger('click');
                         parent.layer.close(index);
                     }
                 });

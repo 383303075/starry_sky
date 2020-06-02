@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class BaseServiceImpl {
+
     public abstract IBaseDao getDao();
 
     public List findByPage(Map map) {
@@ -29,6 +30,6 @@ public abstract class BaseServiceImpl {
     }
 
     public int editRow(Map map){
-        return getDao().editRow(map);
+        return getDao().updateRow(map);
     }
 }

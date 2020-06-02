@@ -15,5 +15,5 @@ public interface IBaseDao {
     //删除单个
     int deleteOne(String id);
     //编辑信息
-    int editRow(Map map);
+    int updateRow(Map map);
 }

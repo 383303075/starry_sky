@@ -27,9 +27,4 @@ public class AdminServiceImpl extends BaseServiceImpl implements IAdminService{
     public Admin findById(String id) {
         return adminDao.findById(id);
     }
-
-    @Override
-    public int editRow(Map map) {
-        return editRow(map);
-    }
 }

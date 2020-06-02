@@ -24,8 +24,4 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         return userDao.findById(u_id);
     }
 
-    @Override
-    public int editRow(Map map) {
-        return userDao.editRow(map);
-    }
 }

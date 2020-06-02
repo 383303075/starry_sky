@@ -111,9 +111,9 @@
         </where>
     </delete>
 
-    <update id="update" parameterType="java.util.Map">
+    <update id="updateRow" parameterType="java.util.Map">
         update users
-        <trim prefix="set" suffixOverrides="," suffix="where id = #{u_id}">
+        <trim prefix="set" suffixOverrides="," suffix="where u_id = #{u_id}">
             <if test="u_name != null">
                 u_name = #{u_name},
             </if>
@@ -137,6 +137,5 @@
             </if>
         </trim>
     </update>
-
 
 </mapper>
