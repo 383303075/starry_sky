@@ -9,4 +9,5 @@ public interface IBaseService {
     int insert(Map param);
     int deleteOne(String id);
     int batchDelete(List<String> list);
+    int editRow(Map map);
 }

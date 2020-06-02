@@ -13,7 +13,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
 
 
-        System.out.println("=============================================================preHandler");
+        System.out.println("=====================================================preHandler");
         //获得请求路径
         String uri = request.getRequestURI();
         System.out.println("该次请求路径为："+uri);
@@ -26,7 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             System.out.println("用户未登录，将跳转到登录页面");
             response.sendRedirect(request.getContextPath()+"/admin/login");
         }
-        System.out.println("==================================================================preHandler结束");
+        System.out.println("======================================================preHandler结束");
         return true;
     }
 

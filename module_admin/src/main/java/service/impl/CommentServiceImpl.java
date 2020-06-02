@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.ICommentService;
 
+import java.util.Map;
+
 @Service
 public class CommentServiceImpl extends BaseServiceImpl implements ICommentService {
     @Autowired
@@ -13,5 +15,10 @@ public class CommentServiceImpl extends BaseServiceImpl implements ICommentServi
     @Override
     public IBaseDao getDao() {
         return commentDao;
+    }
+
+    @Override
+    public int editRow(Map map) {
+        return commentDao.editRow(map);
     }
 }

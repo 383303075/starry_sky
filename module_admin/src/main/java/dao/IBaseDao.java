@@ -14,4 +14,6 @@ public interface IBaseDao {
     int insert(Map param);
     //删除单个
     int deleteOne(String id);
+    //编辑信息
+    int editRow(Map map);
 }

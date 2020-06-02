@@ -28,4 +28,7 @@ public abstract class BaseServiceImpl {
         return getDao().batchDelete(list);
     }
 
+    public int editRow(Map map){
+        return getDao().editRow(map);
+    }
 }

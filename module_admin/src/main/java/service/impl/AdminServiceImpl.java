@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import service.IAdminService;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 @Service
 public class AdminServiceImpl extends BaseServiceImpl implements IAdminService{
@@ -25,5 +26,10 @@ public class AdminServiceImpl extends BaseServiceImpl implements IAdminService{
     @Override
     public Admin findById(String id) {
         return adminDao.findById(id);
+    }
+
+    @Override
+    public int editRow(Map map) {
+        return editRow(map);
     }
 }

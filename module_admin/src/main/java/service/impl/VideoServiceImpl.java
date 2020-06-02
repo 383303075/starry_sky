@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.IVideoService;
 
+import java.util.Map;
+
 @Service
 public class VideoServiceImpl extends BaseServiceImpl implements IVideoService {
 
@@ -15,5 +17,10 @@ public class VideoServiceImpl extends BaseServiceImpl implements IVideoService {
     @Override
     public IBaseDao getDao() {
         return videoDao;
+    }
+
+    @Override
+    public int editRow(Map map) {
+        return videoDao.editRow(map);
     }
 }

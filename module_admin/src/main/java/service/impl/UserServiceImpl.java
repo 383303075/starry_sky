@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.IUserService;
 
+import java.util.Map;
+
 @Service
 public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     @Autowired
@@ -20,5 +22,10 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     @Override
     public User findById(String u_id) {
         return userDao.findById(u_id);
+    }
+
+    @Override
+    public int editRow(Map map) {
+        return userDao.editRow(map);
     }
 }

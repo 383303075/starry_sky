@@ -110,4 +110,33 @@
             </foreach>
         </where>
     </delete>
+
+    <update id="update" parameterType="java.util.Map">
+        update users
+        <trim prefix="set" suffixOverrides="," suffix="where id = #{u_id}">
+            <if test="u_name != null">
+                u_name = #{u_name},
+            </if>
+            <if test="u_password != null">
+                u_password = #{u_password},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="u_icon != null">
+                u_icon = #{u_icon},
+            </if>
+        </trim>
+    </update>
+
+
 </mapper>
