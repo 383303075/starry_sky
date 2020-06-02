@@ -206,16 +206,16 @@
 
             var user = JSON.stringify(data_field);
             console.log(data_field);
-            addUser(user);
+            editUser(user);
             return false;
         });
     });
 
-    function addUser(user) {
-        console.log(user)
+    function editUser(user) {
+        console.log(user);
         $.ajax({
             type: 'post',
-            url: "/starry_admin/user/add",
+            url: "/starry_admin/user/edit",
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
             data: user,
@@ -232,8 +232,6 @@
                         parent.layer.close(index);
                     }
                 });
-
-
             }
         })
     };
