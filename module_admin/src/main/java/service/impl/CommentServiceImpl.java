@@ -2,6 +2,7 @@ package service.impl;
 
 import dao.IBaseDao;
 import dao.ICommentDao;
+import domain.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.ICommentService;
@@ -15,5 +16,10 @@ public class CommentServiceImpl extends BaseServiceImpl implements ICommentServi
     @Override
     public IBaseDao getDao() {
         return commentDao;
+    }
+
+    @Override
+    public Comment findById(String c_id) {
+        return commentDao.findById(c_id);
     }
 }

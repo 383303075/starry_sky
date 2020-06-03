@@ -1,0 +1,211 @@
+<html>
+<head>
+    <title>视频管理</title>
+    <link href="../static/layui/css/layui.css" rel="stylesheet" media="all"/>
+    <script src="../static/layui/layui.js"></script>
+    <script src="../static/layui/jquery.min.js"></script>
+    <script src="../static/layui/common.js"></script>
+</head>
+<body>
+<table class="layui-hide" id="member" lay-filter="test">
+</table>
+<script type="text/html" id="toolbarDemo">
+    <button class="layui-btn layui-btn-sm" lay-event="batchDel"><i class="layui-icon">&#xe640;</i>批量删除</button>
+    <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon">&#xe608;</i>添加</button>
+    <div class="layui-inline"><input class="layui-input" name="wqwfs" id="name" placeholder="请输入评论id"></div>
+    <button class="layui-btn layui-btn-sm"  lay-event="search" id="Search"><i class="layui-icon">&#xe615;</i>搜索</button>
+</script>
+<script type="text/html" id="photoImg">
+    {{#  if(null!=d.photo&&d.photo.length >20){ }}
+    <img src="<%=basePath%>{{d.photo}}" alt="{{d.photo}}">
+    {{#  } else { }}
+    <img src="<%=basePath%>/static/images/default.jpg" alt="谁叫你不上传的">
+    {{#  } }}
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-radius layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe702;</i>编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#x1006;</i>删除</a>
+</script>
+<script>
+    //父页面刷新操作。
+    // function reloadTable() {
+    //     layui.use('table',function(){
+    //         var table = layui.table;
+    //         table.reload('member');
+    //     })
+    // }
+    // layui 要使用何种组件，就要实例化。table ：数据表格
+    // layer:弹出层    from:数据表单
+    layui.use(['table', 'layer', 'form'], function () {
+        var table = layui.table;
+        var layer = layui.layer;
+        //新增一条数据
+        // <%--function addObjecct() {--%>
+        //     <%--    var tourl = "<%=basePath%>/student/oprateUi";--%>
+        //     <%--    layer.open({--%>
+        //         <%--        type: 2,--%>
+        //     <%--        offset: '0px',--%>
+        //     <%--        content: tourl,--%>
+        //     <%--        title: '学生信息新增',--%>
+        //     <%--        area: ['100%', '100%']--%>
+        //     <%--    })--%>
+        //     <%--}--%>
+        //删除一行数据
+        function deleteRow(object) {
+            var id = JSON.stringify(object);
+            $.ajax({
+                type: 'post',
+                url: "/starry_admin/comment/deleteOne",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: id,
+//               请求成功的回调
+                success: function (result) {
+                    layer.msg(result.msg, {
+                        icon: 1,
+                        time: 1300,
+                        end: function () {
+                            // 父页面table刷新;
+                            var $table = parent.$("#member");
+                            table.reload('member');
+                        }
+                    });
+                }
+            })
+        }
+
+        //删除多行数据
+        function deleteRows(object) {
+            $.ajax({
+                type: 'post',
+                url: "/starry_admin/comment/batchDelete",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(object),
+//               请求成功的回调
+                success: function (result) {
+                    layer.msg(result.msg, {
+                        icon: 1,
+                        time: 1300,
+                        end: function () {
+                            // 父页面table刷新;
+                            var $table = parent.$("#member");
+                            table.reload('member');
+                        }
+                    });
+                }
+            })
+        }
+        //渲染table数据   url:
+        table.render({
+            //哪个元素
+            elem: '#member'
+                //数据源   即请求路劲
+            , url: '/starry_admin/comment/findByPage'
+            //请求方式
+            , method: 'post'
+            //预期的数据类型
+            , contentType: 'application/json'
+            //绑定了自定义头部工具栏
+            , toolbar: '#toolbarDemo'
+            //数据表格名称
+            , title: '用户数据表'
+            //请求参数
+            , request: {
+                pageName: 'curr' //页码的参数名称，默认：page
+                , limitName: 'nums' //每页数据量的参数名，默认：limit
+            }
+            //请求条件
+            //   , where: {username: "刘"}
+            //核心字段
+            , cols: [[
+                {type: 'checkbox'}
+            , {field: 'c_id', title: '评论id', width: 240}
+            , {field: 'v_id', title: '所属视频id', width: 120}
+            , {field: 'c_authorId', title: '发表者id', width: 120}
+            , {field: 'c_praise', title: '获赞数', width: 120}
+            , {field: 'c_content', title: '评论内容', width: 120}
+            , {field: 'c_date', title: '发表日期', width: 120}
+
+            //行工具栏
+            , {title: '操作', toolbar: '#barDemo', width: 230}
+    ]]
+    , page: true
+    });
+        //监听行工具事件
+        //第一个参数 ：监听谁？
+        //第二个参数 ：对应的监听要做什么事情
+        table.on('tool(test)', function (obj) {
+            //获取点击行的数据
+            var data = obj.data;//（id,name,photo,sex,age....）
+            //执行删除操作
+            if (obj.event === 'del') {
+                //  如果要删除该行数据  必定要得到当前学生的id
+
+
+                    alert("该行评论id是"+data.c_id);
+
+                layer.confirm('真的要删除行么', function (index) {
+                    deleteRow(data.c_id);
+                });
+            }
+            //监听修改操作
+            else if (obj.event === 'edit') {
+                alert("点击了修改");
+                var id = data.c_id;
+                var tourl = "/starry_admin/comment/editPage?id=" + id;
+                layer.open({
+                    type: 2,
+                    content: tourl,
+                    title: '学生信息修改',
+                    area: ['50%', '50%']
+                })
+            }
+        });
+        //监听头部工具栏事件   第一个参数：监听谁？  第二个参数：对应的监听要做什么事情
+        // 回调方法里的参数 obj  :里面包含了工具栏钟的事件对象
+        table.on('toolbar(test)', function (obj) {
+            //获取所有选中行。
+            var checkStatus = table.checkStatus(obj.config.id);
+            var checked = table.checkStatus("member");
+            switch (obj.event) {
+                case 'batchDel':
+                    alert("点击了批量删除");
+                    //获取选中行数据
+                    var data = checked.data;
+                    var  str="";
+                    for (var i = 0; i < data.length; i++) {
+                        str+=data[i].c_id+","
+                    }
+                    layer.confirm('真的删除选中行么', function (index) {
+                        deleteRows(str);
+                    });
+                    break;
+                //执行新增学生信息的请求：
+                case 'add':
+                    var tourl = "/starry_admin/comment/addPage";
+                    layer.open({
+                        type: 2,
+                        content: tourl,
+                        title: '学生信息新增',
+                        area: ['100%', '100%']
+                    });
+                    break;
+                case  "search":
+                    //数据表格重新渲染
+                    table.reload('member',{
+                        url: '/starry_admin/comment/findByPage'
+                        ,where: {name: $("#name").val()}
+                    })
+
+                    break;
+            }
+        });
+    });
+</script>
+</body>
+</html>
+
+
+
+

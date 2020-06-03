@@ -8,17 +8,16 @@
     <select id="findByPage" parameterType="java.util.Map" resultType="domain.Comment">
         select  * from  comments
         <where>
-            <if test="v_id!=null">
-                name like concat('%',#{v_id},'%')
+            <if test="c_id!=null">
+                name like concat('%',#{c_id},'%')
             </if>
         </where>
         limit  #{start},#{end}
     </select>
 
     <select id="findById" parameterType="java.util.Map" resultType="domain.Comment">
-        select  * from   admins where c_id = #{c_id}
+        select  * from   comments where c_id = #{c_id}
     </select>
-
     <select id="getRowsCount" parameterType="java.util.Map" resultType="int">
         select COUNT(*) FROM comments
         <where>
@@ -93,8 +92,29 @@
         delete from comments
         <where>
             <foreach collection="list" item="c_id" separator="," open="c_id in (" close=")" >
-                #{id}
+                #{c_id}
             </foreach>
         </where>
     </delete>
+
+    <update id="updateRow" parameterType="java.util.Map">
+        update comments
+        <trim prefix="set" suffixOverrides="," suffix="where c_id = #{c_id}">
+            <if test="v_id != null">
+                v_id = #{ v_id},
+            </if>
+            <if test="c_authorid != null">
+                c_authorid = #{c_authorid},
+            </if>
+            <if test="c_praise != null">
+                c_praise = #{c_praise},
+            </if>
+            <if test="c_content != null">
+                c_content = #{c_content},
+            </if>
+            <if test="c_date != null">
+                c_date = #{c_date},
+            </if>
+        </trim>
+    </update>
 </mapper>
