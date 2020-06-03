@@ -2,6 +2,7 @@ package service.impl;
 
 import dao.IBaseDao;
 import dao.IVideoDao;
+import domain.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.IVideoService;
@@ -17,5 +18,10 @@ public class VideoServiceImpl extends BaseServiceImpl implements IVideoService {
     @Override
     public IBaseDao getDao() {
         return videoDao;
+    }
+
+    @Override
+    public Video findById(String v_id) {
+        return videoDao.findById(v_id);
     }
 }
