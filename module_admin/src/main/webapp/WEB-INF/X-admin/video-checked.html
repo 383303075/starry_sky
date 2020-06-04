@@ -11,7 +11,6 @@
 </table>
 <script type="text/html" id="toolbarDemo">
     <button class="layui-btn layui-btn-sm" lay-event="batchDel"><i class="layui-icon">&#xe640;</i>批量删除</button>
-    <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon">&#xe608;</i>添加</button>
     <div class="layui-inline"><input class="layui-input" name="wqwfs" id="name" placeholder="请输入视频名称"></div>
     <button class="layui-btn layui-btn-sm"  lay-event="search" id="Search"><i class="layui-icon">&#xe615;</i>搜索</button>
 </script>
@@ -41,21 +40,21 @@
         var table = layui.table;
         var layer = layui.layer;
         //新增一条数据
-    // <%--function addObjecct() {--%>
-    //     <%--    var tourl = "<%=basePath%>/student/oprateUi";--%>
-    //     <%--    layer.open({--%>
-    //         <%--        type: 2,--%>
-    //     <%--        offset: '0px',--%>
-    //     <%--        content: tourl,--%>
-    //     <%--        title: '学生信息新增',--%>
-    //     <%--        area: ['100%', '100%']--%>
-    //     <%--    })--%>
-    //     <%--}--%>
+        // <%--function addObjecct() {--%>
+        //     <%--    var tourl = "<%=basePath%>/student/oprateUi";--%>
+        //     <%--    layer.open({--%>
+        //         <%--        type: 2,--%>
+        //     <%--        offset: '0px',--%>
+        //     <%--        content: tourl,--%>
+        //     <%--        title: '学生信息新增',--%>
+        //     <%--        area: ['100%', '100%']--%>
+        //     <%--    })--%>
+        //     <%--}--%>
         //删除一行数据
         function deleteRow(object) {
             $.ajax({
                 type: 'post',
-                url: "/starry_admin/admin/deleteOne",
+                url: "/starry_admin/video/deleteOne",
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(object),
@@ -122,7 +121,7 @@
                 {type: 'checkbox'}
                 , {field: 'v_id', title: '视频id', width: 240}
                 , {
-                    field: 'v_name', title: '视频名称', width: 150
+                    field: 'v_name', title: '视频名称',  width: 150
                 }
                 , {field: 'v_type', title: '视频类型', width: 120}
                 , {field: 'v_authorId', title: '作者id', width: 120}
@@ -130,11 +129,11 @@
                 , {field: 'v_click', title: '点击量', width: 120}
                 , {field: 'v_date', title: '日期', width: 120}
                 , {field: 'v_image', title: '图片', templet: '#photoImg', width: 200}
-                , {field: 'v_praise', title: '获赞数', width: 120}
-                , {field: 'v_checkerId', title: '检查者id', width: 120}
-                , {field: 'v_pass', title: '是否通过', width: 120}
-                , {field: 'v_tv', title: '所属剧集', width: 120}
-                , {field: 'v_number', title: '集数', width: 120}
+                , {field: 'v_praise', title: '获赞数', width: 200}
+                , {field: 'v_checkerId', title: '审核人id', width: 120}
+                , {field: 'v_pass', title: '是否通过', width: 200}
+                , {field: 'v_tv', title: '所属剧集', width: 200}
+                , {field: 'v_number', title: '集数', width: 200}
                 //行工具栏
                 , {title: '操作', toolbar: '#barDemo', width: 230}
             ]]
@@ -151,14 +150,13 @@
                 //  如果要删除该行数据  必定要得到当前学生的id
                 alert("该行视频id是"+data.v_id+"该行视频名称是"+data.v_name);
                 layer.confirm('真的要删除行么', function (index) {
-                    deleteRow(data.u_id);
+                    deleteRow(data.v_id);
                 });
             }
             //监听修改操作
             else if (obj.event === 'edit') {
-                alert("点击了修改");
-                var id = data.id;
-                var tourl = "/starry_admin/video/oprateUi?id=" + id+"&type=1";
+                var id = data.v_id;
+                var tourl = "/starry_admin/video/editPage?id="+id+"&ver="+Math.floor(Math.random() * ( 1000 + 1));
                 layer.open({
                     type: 2,
                     content: tourl,
@@ -167,14 +165,13 @@
                 })
             }
             else if (obj.event === 'look') {
-                alert("点击了浏览");
-                var id = data.id;
-                var tourl = "/starry_admin/video/oprateUi?id=" + id+"&type=2";
+                var id = data.v_id;
+                var tourl = "/starry_admin/static/media/demo/index.html";
                 layer.open({
                     type: 2,
                     content: tourl,
-                    title: '学生信息修改',
-                    area: ['100%', '100%']
+                    title: '视频浏览',
+                    area: ['80%', '90%']
                 })
             }
         });
@@ -186,24 +183,23 @@
             var checked = table.checkStatus("member");
             switch (obj.event) {
                 case 'batchDel':
-                    alert("点击了批量删除");
                     //获取选中行数据
                     var data = checked.data;
                     var  str="";
                     for (var i = 0; i < data.length; i++) {
-                        str+=data[i].id+","
+                        str+=data[i].v_id+","
                     }
                     layer.confirm('真的删除选中行么', function (index) {
                         deleteRows(str);
                     });
                     break;
-                //执行新增学生信息的请求：
+                // //执行新增学生信息的请求：
                 // case 'add':
                 //     var tourl = "/starry_admin/user/addPage";
                 //     layer.open({
                 //         type: 2,
                 //         content: tourl,
-                //         title: '学生信息新增',
+                //         title: '视频信息新增',
                 //         area: ['100%', '100%']
                 //     });
                 //     break;
@@ -221,7 +217,3 @@
 </script>
 </body>
 </html>
-
-
-
-
