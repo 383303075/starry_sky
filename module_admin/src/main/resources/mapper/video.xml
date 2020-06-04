@@ -12,8 +12,8 @@
         limit  #{start},#{end}
     </select>
 
-    <select id="findById" parameterType="java.util.Map" resultType="domain.Admin">
-        select  * from   admins where a_id = #{a_id}
+    <select id="findById" parameterType="java.util.Map" resultType="domain.Video">
+        select  * from   videos where v_id = #{v_id}
     </select>
 
     <select id="getRowsCount" parameterType="java.util.Map" resultType="int">

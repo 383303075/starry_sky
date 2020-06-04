@@ -33,7 +33,7 @@ public class UserController extends BaseController{
     public String member_edit(HttpServletRequest request,String id){
         System.out.println("我进来了编辑页面，并且id是"+id);
         String u_id = id;
-        User user = userService.findById(id);
+        User user = userService.findById(u_id);
         request.getSession().setAttribute("editUserInfo",user);
         return "X-admin/member-edit";
     }
@@ -43,6 +43,7 @@ public class UserController extends BaseController{
     public Map getUserInfo(HttpServletRequest request){
         Map map = new HashMap();
         User user = (User) request.getSession().getAttribute("editUserInfo");
+        request.getSession().removeAttribute("editUserInfo");
         map.put("code","1");
         map.put("msg","");
         user.setU_password(null);

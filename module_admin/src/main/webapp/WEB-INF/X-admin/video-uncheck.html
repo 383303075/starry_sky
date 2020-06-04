@@ -157,8 +157,8 @@
             //监听修改操作
             else if (obj.event === 'edit') {
                 alert("点击了修改");
-                var id = data.id;
-                var tourl = "/starry_admin/video/editPage";
+                var id = data.v_id;
+                var tourl = "/starry_admin/video/editPage?id="+id;
                 layer.open({
                     type: 2,
                     content: tourl,
@@ -168,7 +168,7 @@
             }
             else if (obj.event === 'look') {
                 alert("点击了播放");
-                var id = data.id;
+                var id = data.v_id;
                 var tourl = "/starry_admin/static/media/demo/index.html";
                 layer.open({
                     type: 2,
