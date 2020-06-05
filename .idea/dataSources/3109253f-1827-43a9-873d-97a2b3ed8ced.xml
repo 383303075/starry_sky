@@ -1192,7 +1192,7 @@
     <column id="279" parent="214" name="v_pass">
       <Position>11</Position>
       <DataType>varchar(50)|0s</DataType>
-      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;否&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="280" parent="214" name="v_route">
