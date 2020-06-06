@@ -5,8 +5,8 @@
     <select id="findByPage" parameterType="java.util.Map" resultType="domain.User">
         select  * from   users
         <where>
-            <if test="u_name!=null">
-                name like concat('%',#{u_name},'%')
+            <if test="name!=null">
+                u_name like concat('%',#{name},'%')
             </if>
         </where>
         limit  #{start},#{end}

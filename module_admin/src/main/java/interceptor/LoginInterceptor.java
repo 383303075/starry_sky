@@ -17,12 +17,12 @@ public class LoginInterceptor implements HandlerInterceptor {
         //获得请求路径
         String uri = request.getRequestURI();
         System.out.println("该次请求路径为："+uri);
-        Admin admin = (Admin) request.getSession().getAttribute("admin");
+        Admin LoginAdmin = (Admin) request.getSession().getAttribute("LoginAdmin");
 
 
         //判断是否为主页请求并且是否已经登录，否则跳转到登录页面
-        if(admin == null && uri.equals("/starry_admin/admin/index")){
-            System.out.println("=========session中的admin："+admin);
+        if(LoginAdmin == null && uri.equals("/starry_admin/admin/index")){
+            System.out.println("=========session中的admin："+LoginAdmin);
             System.out.println("用户未登录，将跳转到登录页面");
             response.sendRedirect(request.getContextPath()+"/admin/login");
         }

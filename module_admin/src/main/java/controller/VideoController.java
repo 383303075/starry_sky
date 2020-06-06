@@ -50,7 +50,6 @@ public class VideoController extends BaseController{
     public Map getVideoInfo(HttpServletRequest request){
         Map map = new HashMap();
         Video video = (Video) request.getSession().getAttribute("editVideoInfo");
-        request.getSession().removeAttribute("editVideoInfo");
         map.put("code","1");
         map.put("msg","");
         map.put("data",video);

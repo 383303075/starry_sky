@@ -2,7 +2,7 @@ package controller;
 
 import domain.Admin;
 import domain.ResultInfo;
-import domain.User;
+import org.apache.tools.ant.taskdefs.condition.Http;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,9 +12,6 @@ import service.IAdminService;
 import service.IBaseService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Map;
 
 @Controller
@@ -47,6 +44,17 @@ public class AdminController extends BaseController{
     @RequestMapping("/video-uncheck")
     public String getVideoUncheck(){return "X-admin/video-uncheck";}
 
+
+    @RequestMapping("/changeName")
+    public String getEditNamePage(){
+        return "X-admin/update_aname";
+    }
+
+    @RequestMapping("/changePwd")
+    public String getEditPwdPage(){
+        return "X-admin/update_apwd";
+    }
+
     @RequestMapping("/loginCheck")
     @ResponseBody
     public Object loginCheck(@RequestBody Map map, HttpServletRequest request){
@@ -68,7 +76,7 @@ public class AdminController extends BaseController{
             rs.setCode("666");
             rs.setMsg("登录成功");
             rs.setObject(admin);
-            request.getSession().setAttribute("admin",admin);
+            request.getSession().setAttribute("LoginAdmin",admin);
             return rs;
         }else{
             rs.setCode("000");
@@ -77,7 +85,7 @@ public class AdminController extends BaseController{
         }
     }
 
-    @RequestMapping("logout")
+    @RequestMapping("/logout")
     @ResponseBody
     public Object logout(HttpServletRequest request) {
         request.getSession().removeAttribute("admin");
@@ -87,11 +95,31 @@ public class AdminController extends BaseController{
         return rs;
     }
 
-//    @RequestMapping("/getAdminInfo")
-//    public String getAdminInfo(){
-//
-//        return "";
-//    }
+
+    @RequestMapping("/getAdminInfo")
+    @ResponseBody
+    public Admin getAdminInfo(HttpServletRequest request){
+        Admin admin = (Admin) request.getSession().getAttribute("LoginAdmin");
+        admin.setA_password(null);
+        return admin;
+    }
+
+    @RequestMapping("updateSession")
+    @ResponseBody
+    public void updateSession(HttpServletRequest request){
+        Admin admin = (Admin) request.getSession().getAttribute("LoginAdmin");
+        String a_id = admin.getA_id();
+        Admin newAdmin = adminService.findById(a_id);
+        request.getSession().removeAttribute("LoginAdmin");
+        request.getSession().setAttribute("LoginAdmin",newAdmin);
+    }
+
+    @RequestMapping("/updatePwd")
+    @ResponseBody
+    public int editPassword(){
+
+        return 0;
+    }
 
     @Override
     public IBaseService getService() {

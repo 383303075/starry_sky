@@ -23,7 +23,7 @@ public class CommentController extends BaseController {
     ICommentService commentService;
 
     @RequestMapping("a")
-    public String getcom(){
+    public String getCom(){
         return "/X-admin/comment-checked";
     }
 

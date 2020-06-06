@@ -24,13 +24,12 @@ public abstract class BaseController {
         System.out.println("进入到控制层");
         System.out.println("查询第" + curr + "页");//1 2  3  4 5
         System.out.println("每页显示" + nums+ "条");//10  10 10 10 10
-        System.out.println("查询参数是：" + map.get("username"));
+        System.out.println("查询参数是：" + map.get("name"));
 
         Map param = new HashMap();
         param.put("start",(curr-1)*nums);
         param.put("end",nums);
-        param.put("name",map.get("username"));
-
+        param.put("name",map.get("name"));
         List results = getService().findByPage(param);
 
         Map dataMap = new HashMap();
@@ -123,9 +122,10 @@ public abstract class BaseController {
     @RequestMapping("editOne")
     @ResponseBody
     public Map editOne(@RequestBody Map params){
-        int deleteFlag = getService().editRow(params);
+        //int deleteFlag = getService().editRow(params);
         Map  resultMap  = new HashMap();
-        if(deleteFlag > 0){
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+params);
+        if(-1 > 0){
             resultMap.put("code","1");
             resultMap.put("msg","修改成功");
         }else{

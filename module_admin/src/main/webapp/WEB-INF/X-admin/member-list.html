@@ -156,8 +156,8 @@
             //监听修改操作
             else if (obj.event === 'edit') {
                 var id = data.u_id;
-                var targetPage = "/starry_admin/user/editPage?id="+id;
-                layer.msg("点击了修改");
+                var targetPage = "/starry_admin/user/editPage?id="+id+"&ver="+Math.floor(Math.random() * ( 1000 + 1));
+                // layer.msg("点击了修改");
                 layer.open({
                     type: 2,
                     content: targetPage,
