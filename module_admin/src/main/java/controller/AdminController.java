@@ -44,6 +44,9 @@ public class AdminController extends BaseController{
     @RequestMapping("/video-uncheck")
     public String getVideoUncheck(){return "X-admin/video-uncheck";}
 
+    @RequestMapping("/video-upload")
+    public String getVideoUpload(){return "X-admin/video-upload";}
+
 
     @RequestMapping("/changeName")
     public String getEditNamePage(){
