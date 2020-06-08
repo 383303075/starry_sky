@@ -6,7 +6,7 @@
         select  * from   videos
         <where>
             <if test="v_name!=null">
-                name like concat('%',#{a_name},'%')
+                name like concat('%',#{_name},'%')v
             </if>
         </where>
         limit  #{start},#{end}
