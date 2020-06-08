@@ -33,7 +33,7 @@ public class UserController extends BaseController{
     public String member_edit(HttpServletRequest request,String id){
         System.out.println("我进来了编辑页面，并且id是"+id);
         String u_id = id;
-        User user = userService.findById(id);
+        User user = userService.findById(u_id);
         request.getSession().setAttribute("editUserInfo",user);
         return "X-admin/member-edit";
     }

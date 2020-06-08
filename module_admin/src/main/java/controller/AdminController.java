@@ -44,6 +44,11 @@ public class AdminController extends BaseController{
     @RequestMapping("/comment-checked")
     public String getCommentChecked(){return "X-admin/comment-checked";}
 
+    @RequestMapping("/b")
+    public String getreply(){
+        return "X-admin/reply-checked";
+    }
+
     @RequestMapping("/video-uncheck")
     public String getVideoUncheck(){return "X-admin/video-uncheck";}
 

@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.ICommentDao">
+<mapper namespace="dao.IReplyDao">
     <!-- 查询属性： resultType：指定返回的结果集类型：如果是多条数据的话，
     mybatis会自动封装为list容器，并且将resultType作为list的泛型 parameterType:指定传入的参数类型：
     int(Integer),String,Map,List，Set,其他应用类型(Comment) -->
-    <select id="findByPage" parameterType="java.util.Map" resultType="domain.Comment">
-        select  * from  comments
+    <select id="findByPage" parameterType="java.util.Map" resultType="domain.Reply">
+        select  * from  reply
         <where>
             <if test="name!=null">
-                c_authorid like concat('%',#{name},'%')
+                r_authorid like concat('%',#{name},'%')
             </if>
         </where>
         limit  #{start},#{end}
     </select>
 
-    <select id="findById" parameterType="java.util.Map" resultType="domain.Comment">
-        select  * from   comments where c_id = #{c_id}
+    <select id="findQuery" parameterType="java.util.Map" resultType="domain.Reply">
+      select c.c_content from reply r left join com_rep cr on r.r_id = cr.rep_id
+      left join comments c on cr.com_id = c.c_id;
+      <where>
+          <if test="r.r_id!=null">
+              name like concat('%',#{r.r_id},'%')
+          </if>
+          <if test="c.c_id!=null">
+              name like concat('%',#{c.c_id},'%')
+          </if>
+      </where>
+    </select>
+
+    <select id="findById" parameterType="java.util.Map" resultType="domain.Reply">
+        select  * from   reply where r_id = #{r_id}
     </select>
     <select id="getRowsCount" parameterType="java.util.Map" resultType="int">
-        select COUNT(*) FROM comments
+        select COUNT(*) FROM reply
         <where>
-            <if test="c_id!=null">
-                name like concat('%',#{c_id},'%')
+            <if test="r_id!=null">
+                name like concat('%',#{r_id},'%')
             </if>
         </where>
     </select>
@@ -31,49 +44,49 @@
     <!--新增条件语句属性： resultType：默认就是int类型 parameterType:
     指定传入的参数类型：int(Integer),String,Map,List，Set,其他应用类型(Comment) -->
     <insert id="insert" parameterType="java.util.Map">
-        insert into comments
+        insert into reply
         <!--动态条件语句：trim 作用：自定义条件语句属性： prefix，
         指定自定义语句的开始部分 suffix,指定自定义语句的结束部分 suffixOverrides，去掉额外的“，” -->
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="c_id != null">
-                c_id,
+            <if test="r_id != null">
+                r_id,
             </if>
             <if test="v_id != null">
                 v_id,
             </if>
-            <if test="c_authorid != null">
-                c_authorid,
+            <if test="r_authorid != null">
+                r_authorid,
             </if>
-            <if test="c_praise != null">
-                c_praise,
+            <if test="r_praise != null">
+                r_praise,
             </if>
-            <if test="c_content != null">
-                c_content,
+            <if test="r_content != null">
+                r_content,
             </if>
-            <if test="c_date != null">
-                c_date,
+            <if test="r_date != null">
+                r_date,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="c_id != null">
-                #{c_id,jdbcType=VARCHAR},
+            <if test="r_id != null">
+                #{r_id,jdbcType=VARCHAR},
             </if>
             <if test="v_id!= null">
                 #{v_id,jdbcType=VARCHAR},
             </if>
-            <if test="c_authorid != null">
-                #{c_authorid,jdbcType=VARCHAR},
+            <if test="r_authorid != null">
+                #{r_authorid,jdbcType=VARCHAR},
             </if>
-            <if test="c_praise != null">
-            #{c_praise,jdbcType=VARCHAR},
-        </if>
-            <if test="c_content!= null">
-                #{c_content,jdbcType=VARCHAR},
+            <if test="r_praise != null">
+                #{r_praise,jdbcType=VARCHAR},
             </if>
-            <if test="c_date!= null">
-            #{c_date,jdbcType=VARCHAR},
+            <if test="r_content!= null">
+                #{r_content,jdbcType=VARCHAR},
+            </if>
+            <if test="r_date!= null">
+                #{r_date,jdbcType=VARCHAR},
 
-        </if>
+            </if>
         </trim>
     </insert>
 
@@ -81,39 +94,39 @@
     <!-- 删除 resultType：默认就是int类型 parameterType:指定传入的参数类型：
     int(Integer),String,Map,List，Set,其他应用类型(Comment) -->
     <delete id="deleteOne" parameterType="java.lang.String">
-        delete from comments
+        delete from reply
         <where>
-          c_id=#{c_id}
+            r_id=#{r_id}
         </where>
     </delete>
 
     <!--批量删除-->
     <delete id="batchDelete" parameterType="java.lang.String">
-        delete from comments
+        delete from reply
         <where>
-            <foreach collection="list" item="c_id" separator="," open="c_id in (" close=")" >
-                #{c_id}
+            <foreach collection="list" item="r_id" separator="," open="r_id in (" close=")" >
+                #{r_id}
             </foreach>
         </where>
     </delete>
 
     <update id="updateRow" parameterType="java.util.Map">
-        update comments
-        <trim prefix="set" suffixOverrides="," suffix="where c_id = #{c_id}">
+        update reply
+        <trim prefix="set" suffixOverrides="," suffix="where r_id = #{r_id}">
             <if test="v_id != null">
                 v_id = #{ v_id},
             </if>
-            <if test="c_authorid != null">
-                c_authorid = #{c_authorid},
+            <if test="r_authorid != null">
+                r_authorid = #{r_authorid},
             </if>
-            <if test="c_praise != null">
-                c_praise = #{c_praise},
+            <if test="r_praise != null">
+                r_praise = #{r_praise},
             </if>
-            <if test="c_content != null">
-                c_content = #{c_content},
+            <if test="r_content != null">
+                r_content = #{r_content},
             </if>
-            <if test="c_date != null">
-                c_date = #{c_date},
+            <if test="r_date != null">
+                r_date = #{r_date},
             </if>
         </trim>
     </update>

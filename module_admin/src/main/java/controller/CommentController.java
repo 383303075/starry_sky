@@ -32,6 +32,8 @@ public class CommentController extends BaseController {
         return "X-admin/comment-add";
     }
 
+
+
     @RequestMapping("editPage")
     public String member_edit(HttpServletRequest request, String id){
         System.out.println("我进来了编辑页面，并且id是"+id);
@@ -53,8 +55,10 @@ public class CommentController extends BaseController {
         System.out.println("====================================="+comment.toString());
         return map;
     }
-
-
+    @RequestMapping("lookPage")
+    public String getlook(){
+        return "/X-admin/comment-look";
+    }
 
     @Override
     public IBaseService getService() {

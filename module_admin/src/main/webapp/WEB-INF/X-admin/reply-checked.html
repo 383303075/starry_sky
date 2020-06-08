@@ -56,14 +56,14 @@
             var id = JSON.stringify(object);
             $.ajax({
                 type: 'post',
-                url: "/starry_admin/comment/deleteOne",
+                url: "/starry_admin/reply/deleteOne",
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
                 data: id,
 //               请求成功的回调
                 success: function (result) {
                     layer.msg(result.msg, {
-                        icon: result.code,
+                        icon:result.code,
                         time: 1300,
                         end: function () {
                             // 父页面table刷新;
@@ -79,7 +79,7 @@
         function deleteRows(object) {
             $.ajax({
                 type: 'post',
-                url: "/starry_admin/comment/batchDelete",
+                url: "/starry_admin/reply/batchDelete",
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(object),
@@ -101,8 +101,8 @@
         table.render({
             //哪个元素
             elem: '#member'
-                //数据源   即请求路劲
-            , url: '/starry_admin/comment/findByPage'
+            //数据源   即请求路劲
+            , url: '/starry_admin/reply/findByPage'
             //请求方式
             , method: 'post'
             //预期的数据类型
@@ -121,18 +121,18 @@
             //核心字段
             , cols: [[
                 {type: 'checkbox'}
-            , {field: 'c_id', title: '评论id', width: 240}
-            , {field: 'v_id', title: '所属视频id', width: 120}
-            , {field: 'c_authorId', title: '发表者id', width: 120}
-            , {field: 'c_praise', title: '获赞数', width: 120}
-            , {field: 'c_content', title: '评论内容', width: 120}
-            , {field: 'c_date', title: '发表日期', width: 120}
+                , {field: 'r_id', title: '回复id', width: 240}
+                , {field: 'v_id', title: '所属视频id', width: 120}
+                , {field: 'r_authorId', title: '回复者id', width: 120}
+                , {field: 'r_praise', title: '获赞数', width: 120}
+                , {field: 'r_content', title: '回复评论内容', width: 120}
+                , {field: 'r_date', title: '发表日期', width: 120}
 
-            //行工具栏
-            , {title: '操作', toolbar: '#barDemo', width: 230}
-    ]]
-    , page: true
-    });
+                //行工具栏
+                , {title: '操作', toolbar: '#barDemo', width: 230}
+            ]]
+            , page: true
+        });
         //监听行工具事件
         //第一个参数 ：监听谁？
         //第二个参数 ：对应的监听要做什么事情
@@ -144,16 +144,17 @@
                 //  如果要删除该行数据  必定要得到当前学生的id
 
 
-                    alert("该行评论id是"+data.c_id);
+                alert("该行评论id是"+data.r_id);
 
                 layer.confirm('真的要删除行么', function (index) {
-                    deleteRow(data.c_id);
+                    deleteRow(data.r_id);
                 });
             }
             //监听修改操作
             else if (obj.event === 'edit') {
-                var id = data.c_id;
-                var tourl = "/starry_admin/comment/editPage?id=" + id+"&ver="+Math.floor(Math.random() * ( 1000 + 1));
+                alert("点击了修改");
+                var id = data.r_id;
+                var tourl = "/starry_admin/reply/editPage?id=" + id;
                 layer.open({
                     type: 2,
                     content: tourl,
@@ -163,13 +164,13 @@
             }
             else if (obj.event === 'look') {
                 alert("点击了浏览");
-                var id = data.c_id;
-                var tourl = "<center><div style='margin-top: 100px'>"+data.c_content+"</div></center>";
+                var id = data.r_id;
+                var tourl = "/starry_admin/reply/lookPage";
                 layer.open({
-                    type: 1,
+                    type: 2,
                     content: tourl,
                     title: '评论信息浏览',
-                    area: ['35%', '45%']
+                    area: ['50%', '60%']
                 })
             }
         });
@@ -186,7 +187,7 @@
                     var data = checked.data;
                     var  str="";
                     for (var i = 0; i < data.length; i++) {
-                        str+=data[i].c_id+","
+                        str+=data[i].r_id+","
                     }
                     layer.confirm('真的删除选中行么', function (index) {
                         deleteRows(str);
@@ -194,7 +195,7 @@
                     break;
                 //执行新增学生信息的请求：
                 case 'add':
-                    var tourl = "/starry_admin/comment/addPage";
+                    var tourl = "/starry_admin/reply/addPage";
                     layer.open({
                         type: 2,
                         content: tourl,
@@ -202,11 +203,10 @@
                         area: ['100%', '100%']
                     });
                     break;
-
                 case  "search":
                     //数据表格重新渲染
                     table.reload('member',{
-                        url: '/starry_admin/comment/findByPage'
+                        url: '/starry_admin/reply/findByPage'
                         ,where: {name: $("#name").val()}
                     })
 
