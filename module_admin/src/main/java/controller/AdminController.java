@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.IAdminService;
 import service.IBaseService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -44,6 +46,8 @@ public class AdminController extends BaseController{
     @RequestMapping("/video-uncheck")
     public String getVideoUncheck(){return "X-admin/video-uncheck";}
 
+    @RequestMapping("/admin-list")
+    public String getAdminList(){return "X-admin/admin-list";}
 
     @RequestMapping("/changeName")
     public String getEditNamePage(){
@@ -76,6 +80,7 @@ public class AdminController extends BaseController{
             rs.setCode("666");
             rs.setMsg("登录成功");
             rs.setObject(admin);
+            System.out.println(admin.toString());
             request.getSession().setAttribute("LoginAdmin",admin);
             return rs;
         }else{
@@ -116,9 +121,37 @@ public class AdminController extends BaseController{
 
     @RequestMapping("/updatePwd")
     @ResponseBody
-    public int editPassword(){
+    public Map editPassword(@RequestBody Map params,HttpServletRequest request){
+        Admin admin = (Admin) request.getSession().getAttribute("LoginAdmin");
+        System.out.println(admin.toString());
+        String a_id = admin.getA_id();
+        String param_id = (String) params.get("a_id");
+        String old_pwd = (String) params.get("old_password");
 
-        return 0;
+        Map resultMap = new HashMap();
+
+        if(!a_id.equals(param_id)) {
+            resultMap.put("code", "0");
+            resultMap.put("msg", "登录账户与修改账户不一致！请清除缓存后重试~");
+            return resultMap;
+        }
+
+        if(!admin.getA_password().equals(old_pwd)){
+            resultMap.put("code", "0");
+            resultMap.put("msg", "密码错误");
+            return resultMap;
+        }
+
+        int flag = adminService.editRow(params);
+
+        if(flag > 0){
+            resultMap.put("code","1");
+            resultMap.put("msg","修改成功");
+        }else{
+            resultMap.put("code","0");
+            resultMap.put("msg","修改失败");
+        }
+        return resultMap;
     }
 
     @Override

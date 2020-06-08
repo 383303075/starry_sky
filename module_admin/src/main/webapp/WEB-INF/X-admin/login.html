@@ -50,16 +50,16 @@
                         dataType:"json",
                         success:function (result) {
                             if(result.code=="000"){
-                                layer.msg(result.msg+"\n"+"2秒后刷新页面");
+                                layer.msg(result.msg+"\n"+"1秒后刷新页面");
                                 setTimeout(function () {
                                     window.location.reload();
-                                },2000)
+                                },1000)
                             }
                             if(result.code=="666") {
-                                layer.msg("登录成功！");
+                                layer.msg("登录成功！",{time:1000});
                                 setTimeout(function () {
                                     window.location.href = "/starry_admin/admin/index";
-                                },2000)
+                                },1000)
                             }
                         },
                         error:function () {

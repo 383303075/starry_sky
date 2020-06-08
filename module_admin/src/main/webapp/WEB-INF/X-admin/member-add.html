@@ -11,14 +11,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label">昵称</label>
         <div class="layui-input-block">
-            <input type="text" name="u_name" required  lay-verify="required" placeholder="请输入昵称" autocomplete="off" class="layui-input">
+            <input type="text" name="u_name" required  lay-verify="required|name" placeholder="请输入昵称" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="password" name="u_password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            <input type="password" name="u_password" required  lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
         </div>
     </div>
     <!--<div class="layui-form-item">-->
@@ -172,10 +172,44 @@
 
             var user = JSON.stringify(data_field);
             console.log(data_field);
-            addUser(user);
+            duplicateCheck(user);
             return false;
         });
+
+        //添加自定义验证
+        form.verify({
+            pass: [/^[a-zA-Z0-9]{6,15}$/, '密码必须6到15位且只能输入数字和字母'],
+            name:[/^[a-zA-Z0-9]{6,15}$/, '昵称必须2到16位且只能输入数字和字母']
+            // repass: function(value) {
+            //     if ($('#new_password').val() != $('#re_password').val()) {
+            //         return '两次密码不一致';
+            //     }
+            // }
+        });
     });
+
+    function duplicateCheck(user) {
+        $.ajax({
+            type: 'post',
+            url: "/starry_admin/user/duplicateCheck",
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            data: user,
+//               请求成功的回调
+            success: function (result) {
+                if(result.code=="1"){
+                    addUser(user);
+                }else{
+                    layer.msg(result.msg,{time:1500})
+                }
+            },
+            error:function () {
+                layer.msg("服务器裂开了")
+            }
+        })
+    }
+
+
 
     function addUser(user) {
         console.log(user)
@@ -188,7 +222,7 @@
 //               请求成功的回调
             success: function (result) {
                 layer.msg(result.msg, {
-                    icon: 1,
+                    icon: result.code,
                     time: 1300,
                     end: function () {
                         //父页面table刷新;
@@ -204,6 +238,8 @@
             }
         })
     };
+
+
 
     layui.use(['form','code'], function(){
         form = layui.form;

@@ -15,7 +15,7 @@
         <label class="layui-form-label">&nbsp;&nbsp;</label>
         <label class="layui-form-label">id</label>
         <div class="layui-input-inline">
-            <input type="text" name="a_id" lay-verify="" placeholder="隐藏id" autocomplete="off" class="layui-input">
+            <input type="text" id="a_id" name="a_id" lay-verify="required" placeholder="隐藏id" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -24,7 +24,7 @@
         <label class="layui-form-label">&nbsp;&nbsp;</label>
         <label class="layui-form-label">旧密码</label>
         <div class="layui-input-inline">
-            <input type="text" name="old_password" placeholder="请输入旧密码" autocomplete="off" class="layui-input">
+            <input type="password" id="old_password" name="old_password" lay-verify="required|pass" placeholder="请输入旧密码" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -33,7 +33,7 @@
         <label class="layui-form-label">&nbsp;&nbsp;</label>
         <label class="layui-form-label">新密码</label>
         <div class="layui-input-inline">
-            <input type="new_password" name="a_password" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+            <input type="password" id="new_password" name="new_password" lay-verify="required|pass" placeholder="请输入新密码" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -42,7 +42,7 @@
         <label class="layui-form-label">&nbsp;&nbsp;</label>
         <label class="layui-form-label">再次输入</label>
         <div class="layui-input-inline">
-            <input type="new_password" name="a_password" placeholder="请确认新密码" autocomplete="off" class="layui-input">
+            <input type="password" id="re_password" name="re_password" lay-verify="required|repass" placeholder="请确认新密码" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -78,46 +78,55 @@
     //图片上传
     layui.use(['form','upload'], function(){
         var form = layui.form;
-        var $ = layui.jquery,upload = layui.upload;
-        //普通图片上传
-        var uploadInst = upload.render({
-            elem: '#test1'
-            ,url: '/starry_admin/upload/uploadImg' //改成您自己的上传接口
-            ,before: function(obj){
-                //预读本地文件示例，不支持ie8
-                obj.preview(function(index, file, result){
-                    $('#demo1').attr('src', result); //图片链接（base64）
-                    $('#demo1').css('display','block');
-                });
-            }
-            ,done: function(res){
-                console.log(res.path);
-                //给隐藏的input输入框赋值
-                document.getElementById("u_icon").value = res.path;
-                return layer.msg(res.msg);
-            }
-            ,error: function(){
-                //演示失败状态，并实现重传
-                var demoText = $('#demoText');
-                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-                demoText.find('.demo-reload').on('click', function(){
-                    uploadInst.upload();
-                });
+        // var $ = layui.jquery,upload = layui.upload;
+        // //普通图片上传
+        // var uploadInst = upload.render({
+        //     elem: '#test1'
+        //     ,url: '/starry_admin/upload/uploadImg' //改成您自己的上传接口
+        //     ,before: function(obj){
+        //         //预读本地文件示例，不支持ie8
+        //         obj.preview(function(index, file, result){
+        //             $('#demo1').attr('src', result); //图片链接（base64）
+        //             $('#demo1').css('display','block');
+        //         });
+        //     }
+        //     ,done: function(res){
+        //         console.log(res.path);
+        //         //给隐藏的input输入框赋值
+        //         document.getElementById("u_icon").value = res.path;
+        //         return layer.msg(res.msg);
+        //     }
+        //     ,error: function(){
+        //         //演示失败状态，并实现重传
+        //         var demoText = $('#demoText');
+        //         demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+        //         demoText.find('.demo-reload').on('click', function(){
+        //             uploadInst.upload();
+        //         });
+        //     }
+        // });
+        form.verify({
+            pass: [/^[a-zA-Z0-9]{6,15}$/, '密码必须6到15位且只能输入数字和字母'],
+            repass: function(value) {
+                if ($('#new_password').val() != $('#re_password').val()) {
+                    return '两次密码不一致';
+                }
             }
         });
+
         //监听提交
         form.on('submit(formDemo)', function(data){
+
             var data_field = data.field;
 
             //添加注册日期这一属性
-            var d = new Date();
-            var key = "regdate";
-            var value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
-            data_field[key] = value;
-
+            // var d = new Date();
+            // var key = "regdate";
+            // var value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+            // data_field[key] = value;
+            //
             var user = JSON.stringify(data_field);
-            console.log(data_field);
-            editUser(user);
+            updatePwd(user);
             return false;
             //
             // var index = parent.layer.getFrameIndex(window.name);
@@ -126,18 +135,17 @@
         });
     });
 
-    function editUser(user) {
-        console.log(user);
+    function updatePwd(user) {
         $.ajax({
             type: 'post',
-            url: "/starry_admin/user/editOne",
+            url: "/starry_admin/admin/updatePwd",
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
             data: user,
 //               请求成功的回调
             success: function (result) {
                 layer.msg(result.msg, {
-                    icon: 1,
+                    icon: result.code,
                     time: 1300,
                     end: function () {
                         //父页面table刷新;

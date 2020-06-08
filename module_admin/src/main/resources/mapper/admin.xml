@@ -83,8 +83,8 @@
             <if test="a_name != null">
                 a_name = #{a_name},
             </if>
-            <if test="a_password != null">
-                a_password = #{a_password},
+            <if test="new_password != null">
+                a_password = #{new_password},
             </if>
             <if test="a_grant != null">
                 a_grant = #{a_grant},

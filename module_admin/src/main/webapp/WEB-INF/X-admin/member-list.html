@@ -121,19 +121,19 @@
             //核心字段
             , cols: [[
                 {type: 'checkbox'}
-                , {field: 'u_id', title: '用户id', width: 240}
+                , {field: 'u_id',  sort: true,title: '用户id', width: 240}
                 , {
-                    field: 'u_name', title: '用户昵称', templet: function (d) {
+                    field: 'u_name', sort: true, title: '用户昵称', templet: function (d) {
                         return '<span style="color: #c00;">' + d.u_name + '</span>'
                     }, width: 150
                 }
                 , {field: 'sex', sort: true, title: '性别', width:90}
-                , {field: 'age', title: '年龄', width: 70}
-                , {field: 'address', title: '地址', width: 120}
-                , {field: 'phone', title: '手机', width: 120}
-                , {field: 'email', title: '邮箱', width: 200}
-                , {field: 'regdate', title: '注册日期', width: 200}
-                , { field: 'u_icon', title: '头像', templet: '#photoImg', width: 200}
+                , {field: 'age',  sort: true,title: '年龄', width: 70}
+                , {field: 'address', sort: true, title: '地址', width: 120}
+                , {field: 'phone', sort: true, title: '手机', width: 120}
+                , {field: 'email', sort: true, title: '邮箱', width: 200}
+                , {field: 'regdate', sort: true, title: '注册日期', width: 200}
+                , { field: 'u_icon',  sort: true,title: '头像', templet: '#photoImg', width: 200}
                 //行工具栏
                 , {title: '操作', toolbar: '#barDemo', width: 150}
             ]]

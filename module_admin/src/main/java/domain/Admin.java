@@ -5,6 +5,7 @@ public class Admin {
     private String a_name;
     private String a_password;
     private String a_grant;
+    private String a_available;
 
     public String getA_id() {
         return a_id;
@@ -38,6 +39,14 @@ public class Admin {
         this.a_grant = a_grant;
     }
 
+    public String getA_available() {
+        return a_available;
+    }
+
+    public void setA_available(String a_available) {
+        this.a_available = a_available;
+    }
+
     @Override
     public String toString() {
         return "Admin{" +
@@ -45,6 +54,7 @@ public class Admin {
                 ", a_name='" + a_name + '\'' +
                 ", a_password='" + a_password + '\'' +
                 ", a_grant='" + a_grant + '\'' +
+                ", a_available='" + a_available + '\'' +
                 '}';
     }
 }
