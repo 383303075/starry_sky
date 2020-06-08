@@ -3,24 +3,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.IVideoDao">
     <select id="findByPage" parameterType="java.util.Map" resultType="domain.Video">
-        select  * from   videos
+        select * from  videos
         <where>
             <if test="v_name!=null">
-                name like concat('%',#{_name},'%')v
+                v_name like concat('%',#{v_name},'%')
             </if>
         </where>
         limit  #{start},#{end}
-    </select>
-
-    <select id="findById" parameterType="java.util.Map" resultType="domain.Video">
-        select  * from   videos where v_id = #{v_id}
     </select>
 
     <!--根据视频名称查找数据-->
     <select id="getRowsCount" parameterType="java.util.Map" resultType="int">
         select COUNT(*) FROM videos
         <where>
-            <if test="a_name!=null">
+            <if test="v_name!=null">
                 name like concat('%',#{v_name},'%')
             </if>
         </where>

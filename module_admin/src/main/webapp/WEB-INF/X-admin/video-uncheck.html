@@ -61,7 +61,7 @@
 //               请求成功的回调
                 success: function (result) {
                     layer.msg(result.msg, {
-                        icon: 1,
+                        icon: result.code,
                         time: 1300,
                         end: function () {
                             // 父页面table刷新;
@@ -115,7 +115,7 @@
                 , limitName: 'nums' //每页数据量的参数名，默认：limit
             }
             //请求条件
-            //   , where: {username: "刘"}
+            , where: {v_name: "v_name"}
             //核心字段
             , cols: [[
                 {type: 'checkbox'}
@@ -207,7 +207,7 @@
                     //数据表格重新渲染
                     table.reload('member',{
                         url: '/starry_admin/video/findByPage'
-                        ,where: {name: $("#name").val()}
+                        ,where: {v_name: $("#v_name").val()}
                     })
 
                     break;

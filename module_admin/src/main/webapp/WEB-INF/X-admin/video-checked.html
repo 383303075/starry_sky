@@ -13,6 +13,7 @@
     <button class="layui-btn layui-btn-sm" lay-event="batchDel"><i class="layui-icon">&#xe640;</i>批量删除</button>
     <div class="layui-inline"><input class="layui-input" name="wqwfs" id="name" placeholder="请输入视频名称"></div>
     <button class="layui-btn layui-btn-sm"  lay-event="search" id="Search"><i class="layui-icon">&#xe615;</i>搜索</button>
+    <button class="layui-btn layui-btn-sm"  lay-event="uploadvideo" id="uploadvideo"><i class="layui-icon">&#xe615;</i>上传</button>
 </script>
 <script type="text/html" id="photoImg">
     {{#  if(null!=d.photo&&d.photo.length >20){ }}
@@ -61,7 +62,7 @@
 //               请求成功的回调
                 success: function (result) {
                     layer.msg(result.msg, {
-                        icon: 1,
+                        icon: result.code,
                         time: 1300,
                         end: function () {
                             // 父页面table刷新;
@@ -84,7 +85,7 @@
 //               请求成功的回调
                 success: function (result) {
                     layer.msg(result.msg, {
-                        icon: 1,
+                        icon: result.code,
                         time: 1300,
                         end: function () {
                             // 父页面table刷新;
@@ -115,7 +116,7 @@
                 , limitName: 'nums' //每页数据量的参数名，默认：limit
             }
             //请求条件
-            //   , where: {username: "刘"}
+              , where: {v_name: "v_name"}
             //核心字段
             , cols: [[
                 {type: 'checkbox'}
@@ -207,8 +208,17 @@
                     //数据表格重新渲染
                     table.reload('member',{
                         url: '/starry_admin/video/findByPage'
+                        ,where: {v_name: $("#v_name").val()}
                     })
 
+                    break;
+                case  "uploadvideo":
+                    layer.open({
+                        type: 2,
+                        content: '/starry_admin/video/uploadVideo',
+                        title: '视频上传',
+                        area: ['80%', '90%']
+                    })
                     break;
             }
         });

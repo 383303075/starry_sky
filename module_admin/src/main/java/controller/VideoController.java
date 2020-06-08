@@ -23,6 +23,10 @@ public class VideoController extends BaseController{
         return "X-admin/member-add";
     }
 
+    @RequestMapping("uploadVideo")
+    public String uploadVideo(){
+        return "X-admin/video-upload";
+    }
 
 //    @RequestMapping("/getAdminInfo")
 //    public String getAdminInfo(){
