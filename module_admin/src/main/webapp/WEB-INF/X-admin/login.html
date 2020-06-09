@@ -11,6 +11,10 @@
 	  <link rel="stylesheet" href="../static/xadmin/css/xadmin.css">
     <script type="text/javascript" src="../static/xadmin/js/jquery.min.js"></script>
     <script src="../static/xadmin/lib/layui/layui.js" charset="utf-8"></script>
+
+    <!--滑动验证相关-->
+
+    <link rel="stylesheet" href="../static/xadmin/sliderVerify/layui/css/layui.css" />
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -21,59 +25,91 @@
     <div class="login layui-anim layui-anim-up">
         <div class="message">星空视频后台登录</div>
         <div id="darkbannerwrap"></div>
-        
+
         <form method="post" class="layui-form" >
+
             <input name="adminid" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
             <hr class="hr15">
+
             <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
             <hr class="hr15">
+
+            <div class="layui-form-item">
+                <!--<label class="layui-form-label">滑动验证</label>-->
+
+                    <div id="slider"></div>
+
+            </div>
+
             <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
             <hr class="hr20" >
+
+
+            <!--<div class="layui-form-item">-->
+                <!--<div class="layui-input-block">-->
+                    <!--<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>-->
+                    <!--<button class="layui-btn" type="button" id="reset">重置滑块</button>-->
+                    <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+                <!--</div>-->
+            <!--</div>-->
         </form>
     </div>
-
-    <script>
-        $(function () {
-            layui.use('form', function(){
-              var form = layui.form;
-              // layer.msg('玩命卖萌中', function(){
-              //   //关闭后的操作
-              //   });
-              //监听提交
-              form.on('submit(login)', function(data){
-                    var admin = JSON.stringify(data.field);
-                    $.ajax({
-                        url:"/starry_admin/admin/loginCheck",
-                        data:admin,
-                        type:"post",
-                        contentType:"application/json;charset=utf-8",
-                        dataType:"json",
-                        success:function (result) {
-                            if(result.code=="000"){
-                                layer.msg(result.msg+"\n"+"1秒后刷新页面");
-                                setTimeout(function () {
-                                    window.location.reload();
-                                },1000)
-                            }
-                            if(result.code=="666") {
-                                layer.msg("登录成功！",{time:1000});
-                                setTimeout(function () {
-                                    window.location.href = "/starry_admin/admin/index";
-                                },1000)
-                            }
-                        },
-                        error:function () {
-                            layer.msg("服务器无响应,请明年再试");
-                        }
-                    })
-                return false;
-              });
-            });
-        })
-    </script>
-    <!-- 底部结束 -->
-    <script>
-    //百度统计可去掉
-    </script>
 </body>
+<script src="../static/xadmin/sliderVerify/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+    layui.config({base: '../static/xadmin/sliderVerify/dist/sliderVerify/'}).use(['sliderVerify', 'jquery', 'form'], function() {
+        var sliderVerify = layui.sliderVerify,
+            $ = layui.jquery,
+            form = layui.form;
+        var slider = sliderVerify.render({
+            elem: '#slider',
+            onOk: function(){//当验证通过回调
+                layer.msg("滑块验证通过");
+            }
+        })
+        $('#reset').on('click',function(){
+            slider.reset();
+        })
+
+
+        //监听提交
+        form.on('submit(login)', function(data){
+            if(slider.isOk()){
+                var admin = JSON.stringify(data.field);
+                $.ajax({
+                    url:"/starry_admin/admin/loginCheck",
+                    data:admin,
+                    type:"post",
+                    contentType:"application/json;charset=utf-8",
+                    dataType:"json",
+                    success:function (result) {
+                        if(result.code=="000"){
+                            layer.msg(result.msg+"\n"+"1秒后刷新页面");
+                            setTimeout(function () {
+                                window.location.reload();
+                            },1000)
+                        }
+                        if(result.code=="666") {
+                            layer.msg("登录成功！",{time:1000});
+                            setTimeout(function () {
+                                window.location.href = "/starry_admin/admin/index";
+                            },1000)
+                        }
+                    },
+                    error:function () {
+                        layer.msg("服务器无响应,请明年再试");
+                    }
+                })
+            }else{
+                layer.msg("请先通过滑块验证");
+            }
+            return false;
+        });
+    })
+</script>
+<!-- 底部结束 -->
+<script>
+    //百度统计可去掉
+</script>
 </html>

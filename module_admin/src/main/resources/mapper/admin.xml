@@ -5,8 +5,8 @@
     <select id="findByPage" parameterType="java.util.Map" resultType="domain.Admin">
         select  * from   admins
         <where>
-            <if test="a_name!=null">
-                name like concat('%',#{a_name},'%')
+            <if test="name!=null">
+                a_name like concat('%',#{name},'%') or a_id like concat('%',#{name},'%')
             </if>
         </where>
         limit  #{start},#{end}
@@ -88,6 +88,9 @@
             </if>
             <if test="a_grant != null">
                 a_grant = #{a_grant},
+            </if>
+            <if test="a_available != null">
+                a_available = #{a_available},
             </if>
         </trim>
     </update>

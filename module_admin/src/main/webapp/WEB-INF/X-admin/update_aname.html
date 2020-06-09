@@ -120,7 +120,7 @@
             success: function (result) {
                 $.post("/starry_admin/admin/updateSession");
                 layer.msg(result.msg, {
-                    icon: 1,
+                    icon: result.code,
                     time: 1300,
                     end: function () {
                         //父页面table刷新;

@@ -12,6 +12,7 @@
         <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
         <script src="../static/xadmin/lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="../static/xadmin/js/xadmin.js"></script>
+        <script src="../static/layui/jquery.min.js"></script>
         <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
         <!--[if lt IE 9]>
           <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -55,7 +56,7 @@
             </ul>
             <ul class="layui-nav right" lay-filter="">
                 <li class="layui-nav-item">
-                    <a href="javascript:;">admin</a>
+                    <a href="javascript:null" id="adminName"></a>
                     <dl class="layui-nav-child">
                         <!-- 二级菜单 -->
                         <dd>
@@ -108,21 +109,21 @@
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>管理员列表</cite></a>
                             </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('角色管理','admin-role.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>角色管理</cite></a>
-                            </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('权限分类','admin-cate.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>权限分类</cite></a>
-                            </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('权限管理','admin-rule.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>权限管理</cite></a>
-                            </li>
+                            <!--<li>-->
+                                <!--<a onclick="xadmin.add_tab('角色管理','admin-role.html')">-->
+                                    <!--<i class="iconfont">&#xe6a7;</i>-->
+                                    <!--<cite>角色管理</cite></a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a onclick="xadmin.add_tab('权限分类','admin-cate.html')">-->
+                                    <!--<i class="iconfont">&#xe6a7;</i>-->
+                                    <!--<cite>权限分类</cite></a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a onclick="xadmin.add_tab('权限管理','admin-rule.html')">-->
+                                    <!--<i class="iconfont">&#xe6a7;</i>-->
+                                    <!--<cite>权限管理</cite></a>-->
+                            <!--</li>-->
                         </ul>
                     </li>
 
@@ -255,26 +256,42 @@
             //     success:function (result) {
             //
             // })
-            function logout() {
+        $(function getAdminName() {
                 $.ajax({
-                    url:"/starry_admin/admin/logout",
+                    url:"/starry_admin/admin/getAdminInfo",
                     type:"post",
                     contentType:"application/json;charset=utf-8",
                     dataType:"json",
                     success:function (result) {
-                        if(result.code=="333"){
-                            layer.msg(result.msg)
-                            setTimeout(function () {
-                                window.location.href = "/starry_admin/admin/login";
-                            },2000)
-                        }else{
-                            layui.msg("未知错误！")
-                        }
+                        $("#adminName").text(result.a_name);
                     },error:function () {
                         layer.msg("服务器无响应")
                     }
                 })
             }
+        )
+
+        //退出登录
+        function logout() {
+            $.ajax({
+                url:"/starry_admin/admin/logout",
+                type:"post",
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                success:function (result) {
+                    if(result.code=="3"){
+                        layer.msg(result.msg)
+                        setTimeout(function () {
+                            window.location.href = "/starry_admin/admin/login";
+                        },2000)
+                    }else{
+                        layui.msg("未知错误！")
+                    }
+                },error:function () {
+                    layer.msg("服务器无响应")
+                }
+            })
+        }
         </script>
     </body>
 

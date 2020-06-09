@@ -7,14 +7,15 @@
     <link rel="stylesheet" href="../static/xadmin/css/font.css">
     <link rel="stylesheet" href="../static/xadmin/css/xadmin.css">
     <script src="../static/layui/common.js"></script>
+    <script src="../static/layui/jquery.min.js"></script>
 </head>
 <body>
 <table class="layui-hide" id="member" lay-filter="test">
 </table>
 <script type="text/html" id="toolbarDemo">
-    <button class="layui-btn layui-btn-sm" lay-event="batchDel"><i class="layui-icon">&#xe640;</i>批量删除</button>
-    <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon">&#xe608;</i>添加</button>
-    <div class="layui-inline"><input class="layui-input" name="searchKey" id="name" placeholder="请输入用户昵称"></div>
+    <button class="layui-btn layui-btn-sm" lay-event="batchDel" id="batchDelButton"><i class="layui-icon">&#xe640;</i>批量删除</button>
+    <button class="layui-btn layui-btn-sm" lay-event="add" id="addButton"><i class="layui-icon">&#xe608;</i>添加</button>
+    <div class="layui-inline"><input class="layui-input" name="searchKey" id="name" placeholder="请输入管理员昵称"></div>
     <button class="layui-btn layui-btn-sm"  lay-event="search" id="Search"><i class="layui-icon">&#xe615;</i>搜索</button>
     <button class="layui-btn layui-btn-sm"  lay-event="refresh" id="Refresh"><i class="layui-icon"></i>刷新</button>
 </script>
@@ -26,9 +27,9 @@
     {{#  } }}
 </script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-radius layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe702;</i>编辑</a>
+    <a class="layui-btn layui-btn-radius layui-btn-xs" lay-event="edit" id="editButton"><i class="layui-icon">&#xe702;</i>编辑</a>
     <!--<a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="look"><i class="layui-icon">&#xe770;</i>浏览</a>-->
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#x1006;</i>删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" id="delButton"><i class="layui-icon">&#x1006;</i>删除</a>
 </script>
 <script>
     //父页面刷新操作。
@@ -58,14 +59,14 @@
         function deleteRow(object) {
             $.ajax({
                 type: 'post',
-                url: "/starry_admin/user/deleteOne",
+                url: "/starry_admin/admin/deleteOneAdmin",
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(object),
 //               请求成功的回调
                 success: function (result) {
                     layer.msg(result.msg, {
-                        icon: 1,
+                        icon: result.code,
                         time: 1300,
                         end: function () {
                             // 父页面table刷新;
@@ -131,11 +132,28 @@
                 }
                 , {field: 'a_grant', sort: true, title: '权限等级', width:200}
                 , {field: 'a_available', sort: true, title: '是否启用',templet: function (d) {
-                        return '<span class="layui-btn layui-btn-normal layui-btn-xs">' + d.a_available + '</span>'
+                        return '<span class="layui-btn layui-btn-normal layui-btn-sm">' + d.a_available + '</span>'
                     },  width:200}
                 , {title: '操作', toolbar: '#barDemo', width: 200}
             ]]
-            , page: true
+            , page: true,
+            done:function(){
+                $.ajax({
+                    type: 'post',
+                    url: "/starry_admin/admin/getAdminInfo",
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        if(result.a_grant!="1"){
+                            $("#editButton,#delButton,#batchDelButton,#addButton").addClass("layui-disabled").removeAttr("lay-event").click(function () {
+                                layer.msg("您无权对其他管理员进行操作！",{time:1000})
+                            });
+                        }
+                    },error:function () {
+                        layer.msg("服务器裂开了")
+                    }
+                })
+            }
         });
         //监听行工具事件
         //第一个参数 ：监听谁？
@@ -146,15 +164,15 @@
             //执行删除操作
             if (obj.event === 'del') {
                 //  如果要删除该行数据  必定要得到当前学生的id
-                alert("该行用户id是"+data.a_id+"该行用户名是"+data.a_name);
+                alert("id是"+data.a_id+",账号名是"+data.a_name);
                 layer.confirm('真的要删除该账户么', function (index) {
                     deleteRow(data.a_id);
                 });
             }
             //监听修改操作
             else if (obj.event === 'edit') {
-                var id = data.u_id;
-                var targetPage = "/starry_admin/user/editPage?id="+id+"&ver="+Math.floor(Math.random() * ( 1000 + 1));
+                var id = data.a_id;
+                var targetPage = "/starry_admin/admin/editPage?id="+id+"&ver="+Math.floor(Math.random() * ( 1000 + 1));
                 // layer.msg("点击了修改");
                 layer.open({
                     type: 2,
@@ -188,7 +206,7 @@
                     var data = checked.data;
                     var  str="";
                     for (var i = 0; i < data.length; i++) {
-                        str+=data[i].u_id+","
+                        str+=data[i].a_id+","
                     }
                     console.log(str);
                     layer.confirm('真的删除选中行么', function (index) {

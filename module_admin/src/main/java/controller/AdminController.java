@@ -2,12 +2,12 @@ package controller;
 
 import domain.Admin;
 import domain.ResultInfo;
+import domain.User;
 import org.apache.tools.ant.taskdefs.condition.Http;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.IAdminService;
 import service.IBaseService;
@@ -64,6 +64,17 @@ public class AdminController extends BaseController{
         return "X-admin/update_apwd";
     }
 
+
+    @RequestMapping("/editPage")
+    public String member_edit(HttpServletRequest request,String id){
+        System.out.println("我进来了编辑页面，并且id是"+id);
+        String a_id = id;
+        Admin admin = adminService.findById(a_id);
+        request.getSession().setAttribute("editAdminInfo",admin);
+        return "X-admin/admin-edit";
+    }
+
+
     @RequestMapping("/loginCheck")
     @ResponseBody
     public Object loginCheck(@RequestBody Map map, HttpServletRequest request){
@@ -85,7 +96,7 @@ public class AdminController extends BaseController{
             rs.setCode("666");
             rs.setMsg("登录成功");
             rs.setObject(admin);
-            System.out.println(admin.toString());
+            request.getSession().removeAttribute("LoginAdmin");
             request.getSession().setAttribute("LoginAdmin",admin);
             return rs;
         }else{
@@ -100,7 +111,7 @@ public class AdminController extends BaseController{
     public Object logout(HttpServletRequest request) {
         request.getSession().removeAttribute("admin");
         ResultInfo rs = new ResultInfo();
-        rs.setCode("333");
+        rs.setCode("3");
         rs.setMsg("退出成功");
         return rs;
     }
@@ -114,7 +125,9 @@ public class AdminController extends BaseController{
         return admin;
     }
 
-    @RequestMapping("updateSession")
+
+
+    @RequestMapping("/updateSession")
     @ResponseBody
     public void updateSession(HttpServletRequest request){
         Admin admin = (Admin) request.getSession().getAttribute("LoginAdmin");
@@ -157,6 +170,80 @@ public class AdminController extends BaseController{
             resultMap.put("msg","修改失败");
         }
         return resultMap;
+    }
+
+    @RequestMapping("/deleteOneAdmin")
+    @ResponseBody
+    public  Map  deleteOneAdmin(HttpServletRequest request, @RequestBody String id){//1、通过requestBody接受参数
+        System.out.println("============================================进入到删除方法");
+        Admin admin = (Admin) request.getSession().getAttribute("LoginAdmin");
+        String a_grant = admin.getA_grant();
+        Map  resultMap  = new HashMap();
+
+        if(!a_grant.equals("1")){
+            resultMap.put("code","0");
+            resultMap.put("msg","您无权进行删除账号操作！");
+            return resultMap;
+        }
+        //2、调用后台业务逻辑
+        int delFlag = getService().deleteOne(id);
+        //3、处理返回数据
+
+        if(delFlag > 0){
+            resultMap.put("code","1");
+            resultMap.put("msg","删除成功");
+        }else{
+            resultMap.put("code","0");
+            resultMap.put("msg","删除失败");
+        }
+        return  resultMap;
+    }
+
+
+    @RequestMapping("/getEditAdminInfo")
+    @ResponseBody
+    public Map getUserInfo(HttpServletRequest request){
+        Map resultMap = new HashMap();
+        Admin admin = (Admin) request.getSession().getAttribute("editAdminInfo");
+        request.getSession().removeAttribute("editAdminInfo");
+        if(admin==null){
+            resultMap.put("code","0");
+            resultMap.put("msg","查找信息失败");
+            return resultMap;
+        }
+        resultMap.put("code","1");
+        resultMap.put("msg","");
+        admin.setA_password(null);
+        resultMap.put("data",admin);
+        System.out.println("-=-=-=---=-=-=-="+admin.toString());
+        return resultMap;
+    }
+
+    @RequestMapping("/editOneAdmin")
+    @ResponseBody
+    public  Map  editOneAdmin(HttpServletRequest request, @RequestBody Map params){//1、通过requestBody接受参数
+        System.out.println("============================================进入到修改方法");
+        Admin admin = (Admin) request.getSession().getAttribute("LoginAdmin");
+        String a_grant = admin.getA_grant();
+        Map  resultMap  = new HashMap();
+
+        if(!a_grant.equals("1")){
+            resultMap.put("code","0");
+            resultMap.put("msg","您无权对其他管理员账户进行更改操作！");
+            return resultMap;
+        }
+        //2、调用后台业务逻辑
+        int delFlag = getService().editRow(params);
+        //3、处理返回数据
+
+        if(delFlag > 0){
+            resultMap.put("code","1");
+            resultMap.put("msg","修改成功");
+        }else{
+            resultMap.put("code","0");
+            resultMap.put("msg","修改失败");
+        }
+        return  resultMap;
     }
 
     @Override

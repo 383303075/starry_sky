@@ -24,12 +24,12 @@ public class UserController extends BaseController{
     @Autowired
     IUserService userService;
 
-    @RequestMapping("addPage")
+    @RequestMapping("/addPage")
     public String addPage(){
         return "X-admin/member-add";
     }
 
-    @RequestMapping("editPage")
+    @RequestMapping("/editPage")
     public String member_edit(HttpServletRequest request,String id){
         System.out.println("我进来了编辑页面，并且id是"+id);
         String u_id = id;
@@ -38,7 +38,7 @@ public class UserController extends BaseController{
         return "X-admin/member-edit";
     }
 
-    @RequestMapping("duplicateCheck")
+    @RequestMapping("/duplicateCheck")
     @ResponseBody
     public Map nameCheck(@RequestBody Map params){
         System.out.println(params.toString());
@@ -55,7 +55,7 @@ public class UserController extends BaseController{
         return resultMap;
     }
 
-    @RequestMapping("getUserInfo")
+    @RequestMapping("/getUserInfo")
     @ResponseBody
     public Map getUserInfo(HttpServletRequest request){
         Map map = new HashMap();

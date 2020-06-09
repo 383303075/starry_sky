@@ -22,19 +22,19 @@ public class CommentController extends BaseController {
     @Autowired
     ICommentService commentService;
 
-    @RequestMapping("a")
+    @RequestMapping("/a")
     public String getCom(){
         return "/X-admin/comment-checked";
     }
 
-    @RequestMapping("addPage")
+    @RequestMapping("/addPage")
     public String addPage(){
         return "X-admin/comment-add";
     }
 
 
 
-    @RequestMapping("editPage")
+    @RequestMapping("/editPage")
     public String member_edit(HttpServletRequest request, String id){
         System.out.println("我进来了编辑页面，并且id是"+id);
         String c_id = id;
@@ -44,7 +44,7 @@ public class CommentController extends BaseController {
         return "X-admin/comment-edit";
     }
 
-    @RequestMapping("getCommentInfo")
+    @RequestMapping("/getCommentInfo")
     @ResponseBody
     public Map getCommentInfo(HttpServletRequest request){
         Map map = new HashMap();

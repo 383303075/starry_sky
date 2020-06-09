@@ -6,11 +6,7 @@
         select  * from   users
         <where>
             <if test="name!=null">
-
-                u_namewe like concat('%',#{name},'%')
-
-                u_name like concat('%',#{name},'%')
-
+                u_name like concat('%',#{name},'%') or u_id like concat('%',#{name},'%')
             </if>
         </where>
         limit  #{start},#{end}
