@@ -15,10 +15,10 @@
     <button class="layui-btn layui-btn-sm"  lay-event="search" id="Search"><i class="layui-icon">&#xe615;</i>搜索</button>
 </script>
 <script type="text/html" id="photoImg">
-    {{#  if(null!=d.photo&&d.photo.length >20){ }}
-    <img src="<%=basePath%>{{d.photo}}" alt="{{d.photo}}">
+    {{#  if(null!=d.v_icon&&d.v_icon.length>10){ }}
+    <img src="..{{d.v_icon}}" alt="{{d.v_icon}}">
     {{#  } else { }}
-    <img src="<%=basePath%>/static/images/default.jpg" alt="谁叫你不上传的">
+    <img src="../static/layui/images/face/5.gif" alt="谁叫你不上传的">
     {{#  } }}
 </script>
 <script type="text/html" id="barDemo">
@@ -115,7 +115,7 @@
                 , limitName: 'nums' //每页数据量的参数名，默认：limit
             }
             //请求条件
-            , where: {v_name: "v_name"}
+            // , where: {v_name: "v_name"}
             //核心字段
             , cols: [[
                 {type: 'checkbox'}
@@ -207,7 +207,7 @@
                     //数据表格重新渲染
                     table.reload('member',{
                         url: '/starry_admin/video/findByPage'
-                        ,where: {v_name: $("#v_name").val()}
+                        ,where: {name: $("#name").val()}
                     })
 
                     break;
