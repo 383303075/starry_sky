@@ -3,24 +3,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.IVideoDao">
     <select id="findByPage" parameterType="java.util.Map" resultType="domain.Video">
-        select  * from   videos
+        select * from  videos
         <where>
             <if test="v_name!=null">
-                name like concat('%',#{a_name},'%')
+                v_name like concat('%',#{v_name},'%')
             </if>
         </where>
         limit  #{start},#{end}
     </select>
 
-    <select id="findById" parameterType="java.util.Map" resultType="domain.Admin">
-        select  * from   admins where a_id = #{a_id}
-    </select>
-
+    <!--根据视频名称查找数据-->
     <select id="getRowsCount" parameterType="java.util.Map" resultType="int">
-        select COUNT(*) FROM admins
+        select COUNT(*) FROM videos
         <where>
-            <if test="a_name!=null">
-                name like concat('%',#{a_name},'%')
+            <if test="v_name!=null">
+                name like concat('%',#{v_name},'%')
             </if>
         </where>
     </select>
@@ -60,20 +57,63 @@
 
     <!--单条删除-->
     <delete id="deleteOne" parameterType="java.lang.String">
-        delete from admins
+        delete from videos
         <where>
-            a_id=#{a_id}
+            v_id=#{v_id}
         </where>
     </delete>
 
     <!--批量删除-->
     <delete id="batchDelete" parameterType="java.lang.String">
-        delete from admins
+        delete from videos
         <where>
-            <foreach collection="list" item="a_id" separator="," open="a_id in (" close=")" >
-                #{id}
+            <foreach collection="list" item="v_id" separator="," open="v_id in (" close=")" >
+                #{v_id}
             </foreach>
         </where>
     </delete>
-
+    <update id="updateRow" parameterType="java.util.Map">
+        update videos
+        <trim prefix="set" suffixOverrides="," suffix="where v_id = #{v_id}">
+            <if test="v_name != null">
+                v_name = #{v_name},
+            </if>
+            <if test="v_type != null">
+                v_type = #{v_type},
+            </if>
+            <if test="v_authorid != null">
+                v_authorid = #{v_authorid},
+            </if>
+            <if test="v_description != null">
+                v_description = #{v_description},
+            </if>
+            <if test="v_click != null">
+                v_click = #{v_click},
+            </if>
+            <if test="v_date != null">
+                v_date = #{v_date},
+            </if>
+            <if test="v_image != null">
+                v_image = #{v_image},
+            </if>
+            <if test="v_praise != null">
+                v_praise = #{v_praise},
+            </if>
+            <if test="v_checkerid != null">
+                v_checkerid = #{v_checkerid},
+            </if>
+            <if test="v_pass != null">
+                v_pass = #{v_pass},
+            </if>
+            <if test="v_route != null">
+                v_route  = #{v_route },
+            </if>
+            <if test="v_number != null">
+                v_number  = #{v_number },
+            </if>
+            <if test="v_tv != null">
+                v_tv  = #{v_tv },
+            </if>
+        </trim>
+    </update>
 </mapper>

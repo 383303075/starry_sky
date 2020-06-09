@@ -7,4 +7,5 @@ import java.util.Map;
 
 public interface IUserDao extends IBaseDao{
     User findById(String u_id);
+    User findByName(String u_name);
 }

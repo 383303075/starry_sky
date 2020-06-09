@@ -62,22 +62,8 @@
 </head>
 
 <body>
-
+<center>
     <div id="container">
-
-        <section>
-            <h3>Global Options</h3>
-            <form action="#" method="get">
-
-                <label>Stretching (Video Only)<select name="stretching">
-                    <option value="auto" selected>Auto (default)</option>
-                    <option value="responsive">Responsive</option>
-                    <option value="fill" selected>Fill</option>
-                    <option value="none" selected>None (original dimensions)</option>
-                </select>
-                </label>
-            </form>
-        </section>
 
         <br>
         <div class="players" id="player1-container">
@@ -86,35 +72,15 @@
 
             <div class="media-wrapper">
                 <video id="player1" width="640" height="360" style="max-width:100%;" poster="http://www.mediaelementjs.com/images/big_buck_bunny.jpg" preload="none" controls playsinline webkit-playsinline>
-                    <source src="http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4" type="video/mp4">
+                    <source src="/starry_admin/static/video/190321153853126488.mp4" type="video/mp4">
                     <track srclang="en" kind="subtitles" src="mediaelement.vtt">
                     <track srclang="en" kind="chapters" src="chapters.vtt">
                 </video>
             </div>
-            <br>
-            <div>
-                <label>Sources <select name="sources">
-                    <option value="//github.com/mediaelement/mediaelement-files/blob/master/big_buck_bunny.mp4?raw=true">MP4</option>
-                    <option value="//upload.wikimedia.org/wikipedia/commons/2/22/Volcano_Lava_Sample.webm">WebM</option>
-                    <option value="https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8">HLS</option>
-                    <option value="//www.bok.net/dash/tears_of_steel/cleartext/stream.mpd">M(PEG)-DASH</option>
-                    <option value="https://www.dailymotion.com/video/x11prnt">DailyMotion</option>
-                    <option value="https://www.youtube.com/watch?v=twYp6W6vt2U">YouTube</option>
-                    <option value="https://player.vimeo.com/video/108018156?title=0&amp;byline=0&amp;portrait=0&amp;badge=0">Vimeo</option>
-                    <option value="https://www.facebook.com/peopleareawesome/videos/1542174665831706/">Facebook</option>
-                    <option value="https://www.twitch.tv/videos/109010497">Twitch</option>
-                </select>
-                </label>
-            </div>
-            <br>
         </div>
 
-        <br>
-        <hr>
-
-
     </div>
-
+</center>
     <script src="../build/mediaelement-and-player.js"></script>
     <script src="../build/renderers/dailymotion.js"></script>
     <script src="../build/renderers/facebook.js"></script>
@@ -143,5 +109,6 @@
     <script src="../build/lang/zh-cn.js"></script>
     <script src="../build/lang/zh.js"></script>
     <script src="demo.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,281 @@
+<html>
+<head>
+    <title>Title</title>
+    <link href="../static/layui/css/layui.css" rel="stylesheet" media="all"/>
+    <link href="../static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <script src="../static/layui/layui.js"></script>
+    <script src="../static/layui/jquery.min.js"></script>
+    <script src="../static/layui/common.js"></script>
+</head>
+<body>
+<form class="layui-form" action="" lay-filter="example">
+
+        <div class="layui-form-item" style="visibility: hidden">
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">本视频的隐藏id</label>
+            <div class="layui-input-inline">
+                <input type="text" name="v_id" required  lay-verify="required" placeholder="id" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">视频名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="v_name" required  lay-verify="required" placeholder="请输入视频名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">&nbsp;&nbsp;</label>-->
+            <!--<label class="layui-form-label">&nbsp;&nbsp;</label>-->
+            <!--<label class="layui-form-label">密码</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<input type="password" name="u_password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">班级</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<select name="clazz" lay-verify="required">-->
+                    <!--<option value=""></option>-->
+                    <!--<option value="18大联微一班">1 - 18大联微一班</option>-->
+                    <!--<option value="18大联微二班">2 - 18大联微二班</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--===================================================-->
+        <!--<div class="layui-form-item x-city" id="end">-->
+            <!--<label class="layui-form-label">地址</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<select name="address1" lay-filter="province">-->
+                    <!--<option value="">请选择省</option>-->
+                <!--</select>-->
+            <!--</div>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<select name="address2" lay-filter="city">-->
+                    <!--<option value="">请选择市</option>-->
+                <!--</select>-->
+            <!--</div>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<select name="address3" lay-filter="area">-->
+                    <!--<option value="">请选择县/区</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--==========================================-->
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">地址</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<select name="quiz1">-->
+                    <!--<option value="">请选择省</option>-->
+                    <!--<option value="湖北省" selected="">湖北省</option>-->
+                    <!--<option value="江西省">江西省</option>-->
+                    <!--<option value="湖南省">湖南省</option>-->
+                <!--</select>-->
+            <!--</div>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<select name="quiz2">-->
+                    <!--<option value="">请选择市</option>-->
+                    <!--<option value="南昌">南昌</option>-->
+                    <!--<option value="抚州">抚州</option>-->
+                    <!--<option value="赣州">赣州</option>-->
+                    <!--<option value="宜春">宜春</option>-->
+                <!--</select>-->
+            <!--</div>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<select name="quiz3">-->
+                    <!--<option value="">请选择县/区</option>-->
+                    <!--<option value="进贤县">进贤县</option>-->
+                    <!--<option value="袁州区">袁州区</option>-->
+                    <!--<option value="万载县">万载县</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-inline">
+                <input type="text" name="v_type" lay-verify="required" placeholder="请输入视频类型" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">作者id</label>
+            <div class="layui-input-inline">
+                <input type="text" name="v_authorId" required  lay-verify="required" placeholder="请输入作者id" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">视频描述</label>
+            <div class="layui-input-inline">
+                <input type="text" name="v_description" required  lay-verify="required" placeholder="请输入视频描述" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">是否通过</label>
+            <div class="layui-input-inline">
+                <input type="text" name="v_pass" required  lay-verify="required" placeholder="请输入是或否" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">集数</label>
+            <div class="layui-input-inline">
+                <input type="text" name="v_number" required  lay-verify="required" placeholder="请输入视频总集数" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="test1">上传视频封面</button>
+                <div class="layui-upload-list" >
+                    <label class="layui-form-label">&nbsp;&nbsp;</label>
+                    <label class="layui-form-label">&nbsp;&nbsp;</label>
+                    <label class="layui-form-label">&nbsp;&nbsp;</label>
+                    <img class="layui-upload-img" id="demo1" style="width: 92px;height: 92px;margin: 0 10px 10px 0;display:none">
+                    <p id="demoText"></p>
+                </div>
+                <input type="text" style="display:none;" id="v_image" name="v_image">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <label class="layui-form-label">&nbsp;&nbsp;</label>
+            <button class="layui-btn" lay-submit lay-filter="formDemo">提交修改</button>
+            <button type="reset" class="layui-btn layui-btn-primary">清空</button>
+        </div>
+    </form>
+<script src="../static/layui/layui.js"></script>
+<script src="../static/xadmin/js/xcity.js"></script>
+<script>
+
+    $(document).ready(function(){
+        $.ajax({
+            url:"/starry_admin/video/getVideoInfo",
+            type:"post",
+            dataType:"JSON",
+            success:function (obj) {
+                layui.use('form', function() {
+                    var form = layui.form;
+                    form.val("example",obj.data)
+                });
+            },error:function () {
+                layer.msg("服务器裂开了")
+            }
+        })
+    })
+
+
+    //Demo
+    layui.use(['form','upload'], function(){
+        var form = layui.form;
+        var $ = layui.jquery,upload = layui.upload;
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: '/starry_admin/upload/uploadImg' //改成您自己的上传接口
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                    $('#demo1').css('display','block');
+                });
+            }
+            ,done: function(res){
+                console.log(res.path);
+                //给隐藏的input输入框赋值
+                document.getElementById("v_image").value = res.path;
+                return layer.msg(res.msg);
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            var data_field = data.field;
+
+            //添加注册日期这一属性
+            var d = new Date();
+            var key = "regdate";
+            var value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+            data_field[key] = value;
+
+            var video = JSON.stringify(data_field);
+            console.log(data_field);
+            editVideo(video);
+            return false;
+        });
+    });
+
+    function editVideo(video) {
+        console.log(video);
+        $.ajax({
+            type: 'post',
+            url: "/starry_admin/video/editOne",
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            data: video,
+//               请求成功的回调
+            success: function (result) {
+                layer.msg(result.msg, {
+                    icon: result.code,
+                    time: 1300,
+                    end: function () {
+                        //父页面table刷新;
+                        // var $table = parent.$("#member");
+                        // $table.form.reload('member');
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.$('#Refresh',parent.document).trigger('click');
+                        parent.layer.close(index);
+                    }
+                });
+            }
+        })
+    };
+
+    layui.use(['form','code'], function(){
+        form = layui.form;
+
+        layui.code();
+
+        $('#start').xcity();
+
+        $('#end').xcity('广东','广州市','东山区');
+
+    });
+</script>
+<script>
+    // var _hmt = _hmt || []; (function() {
+    //     var hm = document.createElement("script");
+    //     hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+    //     var s = document.getElementsByTagName("script")[0];
+    //     s.parentNode.insertBefore(hm, s);
+    // })();
+</script>
+</body>
+</html>

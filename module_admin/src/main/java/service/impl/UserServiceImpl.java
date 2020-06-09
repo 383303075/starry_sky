@@ -24,4 +24,9 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         return userDao.findById(u_id);
     }
 
+    @Override
+    public User findByName(String u_name) {
+        return userDao.findByName(u_name);
+    }
+
 }

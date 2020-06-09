@@ -76,4 +76,19 @@
         </where>
     </delete>
 
+
+    <update id="updateRow" parameterType="java.util.Map">
+        update admins
+        <trim prefix="set" suffixOverrides="," suffix="where a_id = #{a_id}">
+            <if test="a_name != null">
+                a_name = #{a_name},
+            </if>
+            <if test="new_password != null">
+                a_password = #{new_password},
+            </if>
+            <if test="a_grant != null">
+                a_grant = #{a_grant},
+            </if>
+        </trim>
+    </update>
 </mapper>

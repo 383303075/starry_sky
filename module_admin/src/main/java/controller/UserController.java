@@ -38,11 +38,29 @@ public class UserController extends BaseController{
         return "X-admin/member-edit";
     }
 
+    @RequestMapping("duplicateCheck")
+    @ResponseBody
+    public Map nameCheck(@RequestBody Map params){
+        System.out.println(params.toString());
+        Map resultMap = new HashMap();
+        User user = userService.findByName((String) params.get("u_name"));
+        if(user != null){
+            resultMap.put("code","0");
+            resultMap.put("msg","该昵称已被占用，请重新输入");
+        }
+        else{
+            resultMap.put("code","1");
+            resultMap.put("msg","昵称可用");
+        }
+        return resultMap;
+    }
+
     @RequestMapping("getUserInfo")
     @ResponseBody
     public Map getUserInfo(HttpServletRequest request){
         Map map = new HashMap();
         User user = (User) request.getSession().getAttribute("editUserInfo");
+        request.getSession().removeAttribute("editUserInfo");
         map.put("code","1");
         map.put("msg","");
         user.setU_password(null);
