@@ -6,10 +6,18 @@
         select  * from   users
         <where>
             <if test="name!=null">
+
                 u_namewe like concat('%',#{name},'%')
+
+                u_name like concat('%',#{name},'%')
+
             </if>
         </where>
         limit  #{start},#{end}
+    </select>
+
+    <select id="findByName" parameterType="java.lang.String" resultType="domain.User">
+        select  * from   users where u_name = #{name}
     </select>
 
     <select id="findById" parameterType="java.util.Map" resultType="domain.User">
@@ -19,8 +27,8 @@
     <select id="getRowsCount" parameterType="java.util.Map" resultType="int">
         select COUNT(*) FROM users
         <where>
-            <if test="username!=null">
-                name like concat('%',#{username},'%')
+            <if test="name!=null">
+                u_name like concat('%',#{name},'%')
             </if>
         </where>
     </select>

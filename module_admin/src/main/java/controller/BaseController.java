@@ -125,6 +125,7 @@ public abstract class BaseController {
     public Map editOne(@RequestBody Map params){
         int deleteFlag = getService().editRow(params);
         Map  resultMap  = new HashMap();
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+params);
         if(deleteFlag > 0){
             resultMap.put("code","1");
             resultMap.put("msg","修改成功");
