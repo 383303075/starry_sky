@@ -34,7 +34,7 @@
         <label class="layui-form-label">&nbsp;&nbsp;</label>
         <label class="layui-form-label">密码</label>
         <div class="layui-input-inline">
-            <input type="password" name="a_password" required  lay-verify="required|pass" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+            <input type="password" name="a_password" lay-verify="pass" placeholder="请输入新密码,为空即不修改" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -170,7 +170,7 @@
 
         //自定义密码验证
         form.verify({
-            pass: [/^[a-zA-Z0-9]{6,15}$/, '密码必须6到15位且只能输入数字和字母'],
+            pass: [/^$|^[a-zA-Z0-9]{6,15}$/, '密码必须6到15位且只能输入数字和字母'],
             repass: function(value) {
                 if ($('#new_password').val() != $('#re_password').val()) {
                     return '两次密码不一致';

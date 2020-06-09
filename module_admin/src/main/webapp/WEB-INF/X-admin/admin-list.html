@@ -82,14 +82,14 @@
         function deleteRows(object) {
             $.ajax({
                 type: 'post',
-                url: "/starry_admin/user/batchDelete",
+                url: "/starry_admin/admin/batchDelete",
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(object),
 //               请求成功的回调
                 success: function (result) {
                     layer.msg(result.msg, {
-                        icon: 1,
+                        icon: result.code,
                         time: 1300,
                         end: function () {
                             // 父页面table刷新;
@@ -132,7 +132,7 @@
                 }
                 , {field: 'a_grant', sort: true, title: '权限等级', width:200}
                 , {field: 'a_available', sort: true, title: '是否启用',templet: function (d) {
-                        return '<span class="layui-btn layui-btn-normal layui-btn-sm">' + d.a_available + '</span>'
+                        return '<span class="layui-btn layui-btn-normal layui-btn-sm" lay-event="switchAvailable" id="availableButton">' + d.a_available + '</span>'
                     },  width:200}
                 , {title: '操作', toolbar: '#barDemo', width: 200}
             ]]
@@ -145,7 +145,7 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {
                         if(result.a_grant!="1"){
-                            $("#editButton,#delButton,#batchDelButton,#addButton").addClass("layui-disabled").removeAttr("lay-event").click(function () {
+                            $("#editButton,#delButton,#batchDelButton,#addButton,#availableButton").addClass("layui-disabled").removeAttr("lay-event").click(function () {
                                 layer.msg("您无权对其他管理员进行操作！",{time:1000})
                             });
                         }
@@ -181,15 +181,24 @@
                     area: ['40%', '70%']
                 })
             }
-            else if (obj.event === 'look') {
-                alert("点击了浏览");
-                var id = data.id;
-                var tourl = "<%=basePath%>/student/oprateUi?id=" + id+"&type=2";
-                layer.open({
-                    type: 2,
-                    content: tourl,
-                    title: '学生信息修改',
-                    area: ['100%', '100%']
+            else if (obj.event === 'switchAvailable') {
+                var id = data.a_id;
+                $.ajax({
+                    type: 'post',
+                    url: "/starry_admin/admin/adminSwitch",
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    data:JSON.stringify(id),
+                    success: function (result) {
+                        layer.msg(result.msg,{
+                            icon:result.code,
+                            time:1000
+                        },function () {
+                            $("#Refresh").click();
+                        })
+                    },error:function () {
+                        layer.msg("服务器裂开了")
+                    }
                 })
             }
         });

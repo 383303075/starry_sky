@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.IAdminService;
 import service.IBaseService;
@@ -91,7 +92,7 @@ public class AdminController extends BaseController{
             rs.setCode("000");
             rs.setMsg("登录失败，账号不存在");
             return rs;
-        } else if(password.equals(admin.getA_password())){
+        } else if(password.equals(admin.getA_password())&&!admin.getA_available().equals("未启用")){
             System.out.println("登录成功");
             rs.setCode("666");
             rs.setMsg("登录成功");
@@ -199,6 +200,36 @@ public class AdminController extends BaseController{
         return  resultMap;
     }
 
+    @RequestMapping("/adminSwitch")
+    @ResponseBody
+    public Map switchAvailable(String id){
+        String a_id = id;
+        String a_available;
+        int flag;
+        Admin admin = adminService.findById(a_id);
+        Map resultMap = new HashMap();
+        Map params = new HashMap();
+        params.put("a_id",a_id);
+        if(admin!=null){
+            if(admin.getA_available().equals("未启用")){
+                a_available = "已启用";
+                params.put("a_available",a_available);
+                flag = adminService.editRow(params);
+            }else{
+                a_available = "未启用";
+                params.put("a_available",a_available);
+                flag = adminService.editRow(params);
+            }
+            if(flag>0){
+                resultMap.put("code","1");
+                resultMap.put("msg","切换成功");
+            }
+        }else{
+            resultMap.put("code","0");
+            resultMap.put("msg","切换失败");
+        }
+        return  resultMap;
+    }
 
     @RequestMapping("/getEditAdminInfo")
     @ResponseBody
