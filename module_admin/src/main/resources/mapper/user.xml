@@ -33,7 +33,7 @@
     <insert id="insert" parameterType="java.util.Map">
         insert into users
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="u_id != null">
+            <if test="id != null">
                 u_id,
             </if>
             <if test="u_name != null">
@@ -65,8 +65,8 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="u_id != null">
-                #{u_id,jdbcType=VARCHAR},
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
             </if>
             <if test="u_name != null">
                 #{u_name,jdbcType=VARCHAR},

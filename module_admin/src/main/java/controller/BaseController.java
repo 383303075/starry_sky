@@ -62,7 +62,7 @@ public abstract class BaseController {
         }
 
         //1、创建一个id
-        map.put("u_id",getUUID());
+        map.put("id",getUUID());
         System.out.println(map.toString());
         //2、调用后台的业务逻辑
         int insertFlag = getService().insert(map);

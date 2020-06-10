@@ -45,7 +45,7 @@ public class AdminController extends BaseController{
     public String getCommentChecked(){return "X-admin/comment-checked";}
 
     @RequestMapping("/b")
-    public String getreply(){
+    public String getReply(){
         return "X-admin/reply-checked";
     }
 
@@ -65,6 +65,10 @@ public class AdminController extends BaseController{
         return "X-admin/update_apwd";
     }
 
+    @RequestMapping("/addPage")
+    public String getAddPage(){
+        return "X-admin/admin-add";
+    }
 
     @RequestMapping("/editPage")
     public String member_edit(HttpServletRequest request,String id){
@@ -177,13 +181,21 @@ public class AdminController extends BaseController{
     @ResponseBody
     public  Map  deleteOneAdmin(HttpServletRequest request, @RequestBody String id){//1、通过requestBody接受参数
         System.out.println("============================================进入到删除方法");
-        Admin admin = (Admin) request.getSession().getAttribute("LoginAdmin");
-        String a_grant = admin.getA_grant();
+        Admin loginAdmin = (Admin) request.getSession().getAttribute("LoginAdmin");
+        Admin delAdmin = adminService.findById(id);
+        String l_grant = loginAdmin.getA_grant();
+        String a_grant = delAdmin.getA_grant();
         Map  resultMap  = new HashMap();
 
-        if(!a_grant.equals("1")){
+
+
+        if(!l_grant.equals("1")){
             resultMap.put("code","0");
-            resultMap.put("msg","您无权进行删除账号操作！");
+            resultMap.put("msg","您无权进行管理员删除操作！");
+            return resultMap;
+        }else if(a_grant.equals("1")){
+            resultMap.put("code","0");
+            resultMap.put("msg","不可删除一级管理员！");
             return resultMap;
         }
         //2、调用后台业务逻辑
@@ -202,13 +214,20 @@ public class AdminController extends BaseController{
 
     @RequestMapping("/adminSwitch")
     @ResponseBody
-    public Map switchAvailable(String id){
+    public Map switchAvailable(@RequestBody String id){
         String a_id = id;
         String a_available;
-        int flag;
-        Admin admin = adminService.findById(a_id);
         Map resultMap = new HashMap();
         Map params = new HashMap();
+        int flag;
+        Admin admin = adminService.findById(a_id);
+
+        if(admin.getA_grant().equals("1")){
+            resultMap.put("code","0");
+            resultMap.put("msg","禁止将一级管理员设为停用！");
+            return resultMap;
+        }
+
         params.put("a_id",a_id);
         if(admin!=null){
             if(admin.getA_available().equals("未启用")){
@@ -229,6 +248,22 @@ public class AdminController extends BaseController{
             resultMap.put("msg","切换失败");
         }
         return  resultMap;
+    }
+
+    @RequestMapping("/duplicateCheck")
+    @ResponseBody
+    public Map nameCheck(@RequestBody Map params) {
+        System.out.println(params.toString());
+        Map resultMap = new HashMap();
+        Admin admin = adminService.findByName((String) params.get("a_name"));
+        if (admin != null) {
+            resultMap.put("code", "0");
+            resultMap.put("msg", "该昵称已被占用，请重新输入");
+        } else {
+            resultMap.put("code", "1");
+            resultMap.put("msg", "昵称可用");
+        }
+        return resultMap;
     }
 
     @RequestMapping("/getEditAdminInfo")
@@ -277,7 +312,9 @@ public class AdminController extends BaseController{
         return  resultMap;
     }
 
-    @Override
+
+
+        @Override
     public IBaseService getService() {
         return adminService;
     }

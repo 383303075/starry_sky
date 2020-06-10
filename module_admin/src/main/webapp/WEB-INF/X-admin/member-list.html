@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>学生信息管理页面</title>
+    <title>用户信息管理页面</title>
     <link href="../static/layui/css/layui.css" rel="stylesheet" media="all"/>
     <script src="../static/layui/layui.js"></script>
     <script src="../static/layui/jquery.min.js"></script>
@@ -48,7 +48,7 @@
     //         <%--        type: 2,--%>
     //     <%--        offset: '0px',--%>
     //     <%--        content: tourl,--%>
-    //     <%--        title: '学生信息新增',--%>
+    //     <%--        title: '用户信息新增',--%>
     //     <%--        area: ['100%', '100%']--%>
     //     <%--    })--%>
     //     <%--}--%>
@@ -86,7 +86,7 @@
 //               请求成功的回调
                 success: function (result) {
                     layer.msg(result.msg, {
-                        icon: 1,
+                        icon: result.code,
                         time: 1300,
                         end: function () {
                             // 父页面table刷新;
@@ -147,7 +147,7 @@
             var data = obj.data;//（id,name,photo,sex,age....）
             //执行删除操作
             if (obj.event === 'del') {
-                //  如果要删除该行数据  必定要得到当前学生的id
+                //  如果要删除该行数据  必定要得到当前用户的id
                 alert("该行用户id是"+data.u_id+"该行用户名是"+data.u_name);
                 layer.confirm('真的要删除行么', function (index) {
                     deleteRow(data.u_id);
@@ -172,7 +172,7 @@
                 layer.open({
                     type: 2,
                     content: tourl,
-                    title: '学生信息修改',
+                    title: '用户信息修改',
                     area: ['100%', '100%']
                 })
             }
@@ -197,13 +197,13 @@
                         deleteRows(str);
                     });
                     break;
-                //执行新增学生信息的请求：
+                //执行新增用户信息的请求：
                 case 'add':
                     var tourl = "/starry_admin/user/addPage";
                     layer.open({
                         type: 2,
                         content: tourl,
-                        title: '学生信息新增',
+                        title: '用户信息新增',
                         area: ['100%', '100%']
                     });
                     break;

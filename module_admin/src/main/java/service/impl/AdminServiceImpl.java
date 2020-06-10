@@ -24,7 +24,12 @@ public class AdminServiceImpl extends BaseServiceImpl implements IAdminService{
     }
 
     @Override
-    public Admin findById(String id) {
-        return adminDao.findById(id);
+    public Admin findById(String a_id) {
+        return adminDao.findById(a_id);
+    }
+
+    @Override
+    public Admin findByName(String a_name) {
+        return adminDao.findByName(a_name);
     }
 }
