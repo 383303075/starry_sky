@@ -1,5 +1,6 @@
 package controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.*;
 
@@ -15,7 +17,6 @@ import java.util.*;
 @RequestMapping("upload")
 public class UploadFiles {
 
-    //@RequestBody注解：这个注解只能用到POST请求当中
     @RequestMapping(value = "/uploadVideo",method = RequestMethod.POST)
     @ResponseBody
     public Map uploadVideo(@RequestParam("file") MultipartFile files[], HttpServletRequest request){
@@ -78,6 +79,8 @@ public class UploadFiles {
         return resultMap;
 //        return "/uploadfiles/"+newFileName;
     }
+
+
 
 
     @RequestMapping(value = "/uploadImg",method = RequestMethod.POST)

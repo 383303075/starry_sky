@@ -28,33 +28,93 @@
 
     <!--增加单条数据-->
     <insert id="insert" parameterType="java.util.Map">
-        insert into admins
+        insert into videos
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="a_id != null">
-                a_id,
+            <if test="id != null">
+                v_id,
             </if>
             <if test="a_name != null">
-                a_name,
+                v_name,
             </if>
-            <if test="a_password != null">
-                a_password,
+            <if test="v_type != null">
+                v_type,
             </if>
-            <if test="a_grant != null">
-                a_grant,
+            <if test="v_authorid != null">
+                v_authorid,
+            </if>
+            <if test="v_description != null">
+                v_description,
+            </if>
+            <if test="v_click != null">
+                v_click,
+            </if>
+            <if test="v_date != null">
+                v_date,
+            </if>
+            <if test="v_image != null">
+                v_image,
+            </if>
+            <if test="v_praise != null">
+                v_praise,
+            </if>
+            <if test="v_checkerid != null">
+                v_checkerid,
+            </if>
+            <if test="v_pass != null">
+                v_pass,
+            </if>
+            <if test="v_route != null">
+                v_route,
+            </if>
+            <if test="v_number != null">
+                v_number,
+            </if>
+            <if test="v_tv != null">
+                v_tv,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="a_id != null">
-                #{a_id,jdbcType=VARCHAR},
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
             </if>
-            <if test="a_name != null">
-                #{a_name,jdbcType=VARCHAR},
+            <if test="v_name != null">
+                #{v_name,jdbcType=VARCHAR},
             </if>
-            <if test="a_password != null">
-                #{a_password,jdbcType=VARCHAR},
+            <if test="v_type != null">
+                #{v_type,jdbcType=VARCHAR},
             </if>
-            <if test="a_grant != null">
-                #{a_grant,jdbcType=VARCHAR},
+            <if test="v_authorid != null">
+                #{v_authorid,jdbcType=VARCHAR},
+            </if>
+            <if test="v_description != null">
+                #{v_description,jdbcType=VARCHAR},
+            </if>
+            <if test="v_click != null">
+                #{v_click,jdbcType=VARCHAR},
+            </if>
+            <if test="v_date != null">
+                #{v_date,jdbcType=VARCHAR},
+            </if>
+            <if test="v_image != null">
+                #{v_image,jdbcType=VARCHAR},
+            </if>
+            <if test="v_praise != null">
+                #{v_praise,jdbcType=VARCHAR},
+            </if>
+            <if test="v_checkerid != null">
+                #{v_checkerid,jdbcType=VARCHAR},
+            </if>
+            <if test="v_pass != null">
+                #{v_pass,jdbcType=VARCHAR},
+            </if>
+            <if test="v_route != null">
+                #{v_route,jdbcType=VARCHAR},
+            </if>
+            <if test="v_number != null">
+                #{v_number,jdbcType=VARCHAR},
+            </if>
+            <if test="v_tv != null">
+                #{v_tv,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -76,6 +136,8 @@
             </foreach>
         </where>
     </delete>
+
+
     <update id="updateRow" parameterType="java.util.Map">
         update videos
         <trim prefix="set" suffixOverrides="," suffix="where v_id = #{v_id}">

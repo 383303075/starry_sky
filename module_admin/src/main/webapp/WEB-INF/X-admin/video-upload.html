@@ -10,14 +10,14 @@
 <body>
 <form class="layui-form" action="" lay-filter="example">
 
-    <div class="layui-form-item" style="visibility: hidden">
-        <label class="layui-form-label">&nbsp;&nbsp;</label>
-        <label class="layui-form-label">&nbsp;&nbsp;</label>
-        <label class="layui-form-label">本视频的隐藏id</label>
-        <div class="layui-input-inline">
-            <input type="text" name="v_id" required  lay-verify="required" placeholder="id" autocomplete="off" class="layui-input">
-        </div>
-    </div>
+    <!--<div class="layui-form-item" style="visibility: hidden">-->
+        <!--<label class="layui-form-label">&nbsp;&nbsp;</label>-->
+        <!--<label class="layui-form-label">&nbsp;&nbsp;</label>-->
+        <!--<label class="layui-form-label">本视频的隐藏id</label>-->
+        <!--<div class="layui-input-inline">-->
+            <!--<input type="text" name="v_id" required  lay-verify="required" placeholder="id" autocomplete="off" class="layui-input">-->
+        <!--</div>-->
+    <!--</div>-->
 
     <div class="layui-form-item">
         <label class="layui-form-label">&nbsp;&nbsp;</label>
@@ -103,14 +103,14 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">&nbsp;&nbsp;</label>
-        <label class="layui-form-label">&nbsp;&nbsp;</label>
-        <label class="layui-form-label">作者id</label>
-        <div class="layui-input-inline">
-            <input type="text" name="v_authorId" required  lay-verify="required" placeholder="请输入作者id" autocomplete="off" class="layui-input">
-        </div>
-    </div>
+    <!--<div class="layui-form-item">-->
+        <!--<label class="layui-form-label">&nbsp;&nbsp;</label>-->
+        <!--<label class="layui-form-label">&nbsp;&nbsp;</label>-->
+        <!--<label class="layui-form-label">作者id</label>-->
+        <!--<div class="layui-input-inline">-->
+            <!--<input type="text" name="v_authorId" required  lay-verify="required" placeholder="请输入作者id" autocomplete="off" class="layui-input">-->
+        <!--</div>-->
+    <!--</div>-->
 
     <div class="layui-form-item">
         <label class="layui-form-label">&nbsp;&nbsp;</label>
@@ -143,7 +143,7 @@
                 <img class="layui-upload-file" id="demo1" style="width: 92px;height: 92px;margin: 0 10px 10px 0;display:none">
                 <p id="demoText"></p>
             </div>
-            <input type="text" style="display:none;" id="v_image" name="v_image">
+            <input type="mp4" style="display:none;" id="v_image" name="v_image">
         </div>
     </div>
 
@@ -183,7 +183,8 @@
         //普通图片上传
         var uploadInst = upload.render({
             elem: '#test1'
-            ,url: '/starry_admin/upload/uploadImg' //改成您自己的上传接口
+            ,url: '/starry_admin/upload/uploadVideo' //改成您自己的上传接口
+            , accept: 'video' //指定允许上传时校验的文件类型，可选值有：images（图片）、file（所有文件）、video（视频）、audio（音频）
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
@@ -218,16 +219,16 @@
 
             var video = JSON.stringify(data_field);
             console.log(data_field);
-            editVideo(video);
+            uploadVideo(video);
             return false;
         });
     });
 
-    function editVideo(video) {
+    function uploadVideo(video) {
         console.log(video);
         $.ajax({
             type: 'post',
-            url: "/starry_admin/video/editOne",
+            url: "/starry_admin/video/add",
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
             data: video,
