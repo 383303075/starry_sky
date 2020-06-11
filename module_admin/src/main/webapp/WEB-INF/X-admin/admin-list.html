@@ -164,7 +164,6 @@
             //执行删除操作
             if (obj.event === 'del') {
                 //  如果要删除该行数据  必定要得到当前用户的id
-                alert("id是"+data.a_id+",账号名是"+data.a_name);
                 layer.confirm('真的要删除该账户么', function (index) {
                     deleteRow(data.a_id);
                 });
