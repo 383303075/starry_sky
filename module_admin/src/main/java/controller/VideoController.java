@@ -44,7 +44,7 @@ public class VideoController extends BaseController{
         System.out.println("我进来了编辑页面，并且id是"+id);
         String v_id = id ;
         Video video = videoService.findById(v_id);
-        System.out.println("[][][][][][][][][][]["+video.toString());
+        System.out.println("[][][][][][][][][][]"+video.toString());
         request.getSession().setAttribute("editVideoInfo",video);
         return "X-admin/video-edit";
     }

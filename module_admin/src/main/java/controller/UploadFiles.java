@@ -109,7 +109,7 @@ public class UploadFiles {
             //给上传上来的文件重新取一个名字
             newFileName = UUID.randomUUID() + fileName.substring(fileName.lastIndexOf("."));
             newFileName = newFileName.replace("-", "");
-            System.out.println("上传后文件名:" + newFileName);
+            System.out.println("上传后文件名:" + newFileName+"路径是："+path);
             //上传的文件不为空，我们就开始复制文件
             if (!files[i].isEmpty()) {
                 try {

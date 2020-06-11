@@ -136,4 +136,12 @@ public abstract class BaseController {
         return  resultMap;
     }
 
+    @RequestMapping("/totalCount")
+    @ResponseBody
+    public int totalCount(){
+        Map map = new HashMap();
+        int count = getService().getRowsCount(map);
+        return count;
+    }
+
 }

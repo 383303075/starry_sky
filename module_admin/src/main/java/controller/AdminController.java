@@ -33,6 +33,11 @@ public class AdminController extends BaseController{
         return "X-admin/index";
     }
 
+    @RequestMapping("/welcome")
+    public String getWelcomePage(){
+        return "X-admin/welcome";
+    }
+
     @RequestMapping("/member-list")
     public String getMemberList(){
         return "X-admin/member-list";
