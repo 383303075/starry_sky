@@ -29,7 +29,7 @@
     <insert id="insert" parameterType="java.util.Map">
         insert into admins
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="a_id != null">
+            <if test="id != null">
                 a_id,
             </if>
             <if test="a_name != null">
@@ -43,8 +43,8 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="a_id != null">
-                #{a_id,jdbcType=VARCHAR},
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
             </if>
             <if test="a_name != null">
                 #{a_name,jdbcType=VARCHAR},
@@ -57,6 +57,10 @@
             </if>
         </trim>
     </insert>
+
+    <select id="findByName" parameterType="java.lang.String" resultType="domain.User">
+        select  * from   admins where a_name = #{name}
+    </select>
 
     <!--单条删除-->
     <delete id="deleteOne" parameterType="java.lang.String">

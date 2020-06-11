@@ -6,7 +6,6 @@ package domain;
 public class Comment {
     private String c_id;
     private String v_id;
-    private String authorId;
     private String c_authorId;
     private String c_praise;
     private String c_content;
@@ -26,14 +25,6 @@ public class Comment {
 
     public void setV_id(String v_id) {
         this.v_id = v_id;
-    }
-
-    public String getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
     }
 
     public String getC_authorId() {
@@ -73,7 +64,6 @@ public class Comment {
         return "Comment{" +
                 "c_id='" + c_id + '\'' +
                 ", v_id='" + v_id + '\'' +
-                ", authorId='" + authorId + '\'' +
                 ", c_authorId='" + c_authorId + '\'' +
                 ", c_praise='" + c_praise + '\'' +
                 ", c_content='" + c_content + '\'' +
