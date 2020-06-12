@@ -33,7 +33,7 @@
             <if test="id != null">
                 v_id,
             </if>
-            <if test="a_name != null">
+            <if test="v_name != null">
                 v_name,
             </if>
             <if test="v_type != null">

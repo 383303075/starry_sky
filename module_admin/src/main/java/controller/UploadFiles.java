@@ -21,7 +21,7 @@ public class UploadFiles {
     @ResponseBody
     public Map uploadVideo(@RequestParam("file") MultipartFile files[], HttpServletRequest request){
         //上传路径：读取当前controller的绝对路径，看是否存在一个叫做uploadfiles的文件或者文件夹
-        String path = request.getServletContext().getRealPath("uploadfiles");
+        String path = request.getServletContext().getRealPath("uploadVideos");
         System.out.println("文件上传路径是："+path);
         //将读取的文件或者文件夹实例化/初始化为java的对象，使得我们能够获得文件/文件夹的相关信息
         File uploadfiles = new File(path);
@@ -63,7 +63,7 @@ public class UploadFiles {
                     in.close();
                     resultMap.put("code","0");
                     resultMap.put("msg","上传成功");
-                    resultMap.put("path","/uploadfiles/"+newFileName);
+                    resultMap.put("path","/uploadVideos/"+newFileName);
                 } catch (FileNotFoundException e) {
                     resultMap.put("code","1");
                     resultMap.put("msg","上传失败");

@@ -133,10 +133,14 @@
                 , {field: 'v_checkerId', title: '审核人id', width: 120}
                 , {field: 'v_pass', title: '是否通过', width: 200}
                 , {field: 'v_tv', title: '所属剧集', width: 200}
+                , {field: 'v_route', title: '视频路径', width: 200}
                 , {field: 'v_number', title: '集数', width: 200}
                 //行工具栏
                 , {title: '操作', toolbar: '#barDemo', width: 230}
-            ]]
+            ]],
+            done:function(res,curr,count){ // 隐藏列
+                $(".layui-table-box").find("[data-field='v_route']").css("display","none");
+            }
             , page: true
         });
         //监听行工具事件
