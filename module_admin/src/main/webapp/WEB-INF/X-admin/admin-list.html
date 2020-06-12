@@ -132,7 +132,7 @@
                 }
                 , {field: 'a_grant', sort: true, title: '权限等级', width:200}
                 , {field: 'a_available', sort: true, title: '是否启用',templet: function (d) {
-                        return '<span class="layui-btn layui-btn-normal layui-btn-sm" lay-event="switchAvailable" id="availableButton">' + d.a_available + '</span>'
+                        return '<span class="layui-btn layui-btn-normal layui-btn-sm" title="点击切换" lay-event="switchAvailable" id="availableButton">' + d.a_available + '</span>'
                     },  width:200}
                 , {title: '操作', toolbar: '#barDemo', width: 200}
             ]]
