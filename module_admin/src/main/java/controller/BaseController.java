@@ -65,7 +65,7 @@ public abstract class BaseController {
 
         String uri = request.getRequestURI();
         String uris[] = uri.split("/");
-        if(uris[uris.length-2].equals("admin")){
+        if(uris[uris.length-2].equals("admin")||uris[uris.length-2].equals("user")){
             map.put("id",getAdminId());
         }else{
             map.put("id",getUUID());
