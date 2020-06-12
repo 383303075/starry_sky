@@ -5,11 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.IBaseService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static util.GetAdminId.getAdminId;
 import static util.GetUUID.getUUID;
 
 public abstract class BaseController {
@@ -47,7 +49,7 @@ public abstract class BaseController {
 
     @RequestMapping("/add")
     @ResponseBody
-    public  Map  addObject(@RequestBody Map map){
+    public  Map  addObject(HttpServletRequest request, @RequestBody Map map){
 
         if(map.get("address1")!=null){
             String ad1 = map.get("address1")+"省";
@@ -61,8 +63,15 @@ public abstract class BaseController {
 
         }
 
+        String uri = request.getRequestURI();
+        String uris[] = uri.split("/");
+        if(uris[uris.length-2].equals("admin")||uris[uris.length-2].equals("user")){
+            map.put("id",getAdminId());
+        }else{
+            map.put("id",getUUID());
+        }
         //1、创建一个id
-        map.put("id",getUUID());
+
         System.out.println(map.toString());
         //2、调用后台的业务逻辑
         int insertFlag = getService().insert(map);

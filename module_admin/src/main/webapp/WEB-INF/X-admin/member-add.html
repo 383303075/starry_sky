@@ -10,9 +10,9 @@
 <body>
 <form class="layui-form" action="" lay-filter="example">
     <div class="layui-form-item">
-        <label class="layui-form-label">昵称</label>
+        <label class="layui-form-label">账户名</label>
         <div class="layui-input-block">
-            <input type="text" name="u_name" required  lay-verify="required|name" placeholder="请输入昵称" autocomplete="off" class="layui-input">
+            <input type="text" name="u_name" required  lay-verify="required|name" placeholder="请输入账户名" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -96,14 +96,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label">手机</label>
         <div class="layui-input-block">
-            <input type="text" name="phone" lay-verify="phone" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+            <input type="text" name="phone" lay-verify="phoneNumber" placeholder="请输入手机号(选填)" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">邮箱</label>
         <div class="layui-input-block">
-            <input type="text" name="email" required  lay-verify="email" placeholder="请输入名称" autocomplete="off" class="layui-input">
+            <input type="text" name="email" required  lay-verify="diyEmail" placeholder="请输入邮箱地址(选填)" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -178,6 +178,8 @@
 
         //添加自定义验证
         form.verify({
+            diyEmail:[/^$|^(([0-9a-zA-Z]+)|([0-9a-zA-Z]+[_.0-9a-zA-Z-]*[0-9a-zA-Z]+))@([a-zA-Z0-9-]+[.])+([a-zA-Z]{2}|net|NET|com|COM|gov|GOV|mil|MIL|org|ORG|edu|EDU|int|INT)$/,'请输入正确格式邮箱'],
+            phoneNumber:[/^$|^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/,'请输入正确格式的号码'],
             pass: [/^[a-zA-Z0-9]{6,15}$/, '密码必须6到15位且只能输入数字和字母'],
             name:[/^[a-zA-Z0-9]{6,15}$/, '昵称必须2到16位且只能输入数字和字母']
             // repass: function(value) {
