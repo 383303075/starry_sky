@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>DPlayer Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="demo.css">
+    <link href="https://cdn.bootcdn.net/ajax/libs/dplayer/1.25.0/DPlayer.min.css" rel="stylesheet">
+    <script src="./DPlayer.min.js"></script>
+</head>
+
+<body class="markdown-body">
+<div id="player1" class="dplayer">
+</div>
+
+
+<script>
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+
+        var Request = new Object();
+        Request = GetRequest();
+        var val= Request["v_route"];
+
+
+
+    var dp = new DPlayer({
+        element: document.getElementById('player1'),                       // 可选，player元素
+        autoplay: false,                                                   // 可选，自动播放视频，不支持移动浏览器
+        theme: '#FADFA3',                                                  // 可选，主题颜色，默认: #b7daff
+        loop: true,                                                        // 可选，循环播放音乐，默认：true
+        lang: 'zh-cn',                                                        // 可选，语言，`zh'用于中文，`en'用于英语，默认：Navigator
+        //  language
+        screenshot: false,                                                  // 可选，启用截图功能，默认值：false，注意：如果设置为
+        //  true，视频和视频截图必须启用跨域
+        hotkey: true,                                                      // 可选，绑定热键，包括左右键和空格，默认值：true
+        preload: 'auto',                                                   // 可选，预加载的方式可以是'none''metadata''auto'，默认
+        // 值：'auto'
+        video: {                                                                               // 必需，视频信息
+            url: 'http://localhost:8080/starry_admin'+ val          // 必填，视频网址            // 可选，视频截图
+        }
+    });
+</script>
+</body>
+
+</html>

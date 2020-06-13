@@ -17,7 +17,7 @@
     <context:component-scan base-package="controller"/>
     <!--静态资源访问-->
     <mvc:resources mapping="/static/**" location="/static/"/>
-    <mvc:resources mapping="/uploadfiles/**" location="/uploadVideos/"/>
+    <mvc:resources mapping="/uploadVideos/**" location="/uploadVideos/"/>
     <mvc:resources mapping="/user_icon/**"  location="/user_icon/"/>
     <mvc:resources mapping="/video_cover/**"  location="/video_cover/"/>
     <!--视图解析器-->
